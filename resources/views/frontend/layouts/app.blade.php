@@ -88,16 +88,3 @@ $categories = $new->getCategory();
 </script>
 <!--End of Tawk.to Script-->
 
-
-
-hello sir today's work 
-
-open link from home page to->Product listing page 
-
-Product listing -> catrgory listing product 
-listing pagination (Pagination design needes to update need designer work here)
-
-Next-day's work prodcut filter based on catgory
-and 
-
-

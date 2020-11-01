@@ -20,13 +20,28 @@ class FrontendController extends Controller
     	return view('frontend.index',compact('product','banner','addons','brand'));
 	}
     public function getProducts(){
-    	$products = Product::with('category')->with('subcategory')->paginate(1);
+    	$products = Product::with('category')->with('subcategory')->paginate(9);
     	return view('frontend.products',compact('products'));
+    }
+    public function filterSubcat($id){
+        $products = Product::where('products.subcategory_id',$id)->paginate(9);
+        return view('frontend.products',compact('products'));
+    }
+    public function filterCat($id){
+        $products = Product::where('products.category_id',$id)->paginate(9);
+        return view('frontend.products',compact('products'));
     }
 
     public function getCategory(){
     	$category = Category::with('subcategories')->get();
     	return $category;
+
+    }
+    public function about(){
+     return view('frontend.about');       
+    }
+    public function contact(){
+     return view('frontend.contact');
 
     }
 }

@@ -12,7 +12,7 @@ $categories = $new->getCategory();
 		<div class="content-page">
 			<div class="container">
                <div class="bread-crumb bg-white border radius6">
-					<a href="index.php">Home</a> <a href="#">Indian</a> <span class="color">Festival Specialities</span>
+					<a href="index.php">Home</a> <a href="#">Indian</a> <span class="color"><!-- Festival Specialities --></span>
 				</div>
      			<div class="main-content-page">
 					<div class="row">
@@ -21,9 +21,9 @@ $categories = $new->getCategory();
 							<div class="wrap-cat-icon box-border-top bg-white drop-shadow hidden-xs hidden-sm">
 								<h2 class="title18 title-box4 title-cat-icon">Categories</h2>
 								<ul class="list-cat-icon">
-														@foreach($categories as $val)
+									@foreach($categories as $val)
 									<li class="has-cat-mega">
-										<a href="#"><span>{{$val->name}}</span></a>
+										<a href="{{Route('userhome.filterCat',['id'=>$val->id])}}"><span>{{$val->name}}</span></a>
 										<div class="cat-mega-menu cat-mega-style1">
 											<div class="row">
 												<div class="col-md-4 col-sm-4">
@@ -31,7 +31,7 @@ $categories = $new->getCategory();
 														<h2 class="title-cat-mega-menu">{{$val->name}}</h2>
 														<ul class="list-none">
 														@foreach($val->subcategories as $val1)
-															<li><a href="#">{{$val1->name}}</a></li>
+															<li><a href="{{Route('userhome.filterSubcat',['id'=>$val1->id])}}">{{$val1->name}}</a></li>
 														@endforeach
 														</ul>
 													</div>
@@ -62,11 +62,14 @@ $categories = $new->getCategory();
 								</div>
 								<div class="grid-shop">
 									<div class="row">
+										@if(!empty($products))
+										<h3 style="margin-left:300px; ">No Products available</h3>
+										@endif
 										@foreach($products as $val)
 										<div class="col-md-4 col-sm-6 col-xs-6">
 											<div class="item-product1 style-border">
 												<div class="product-thumb">
-													<a href=""><img alt="Hamdard Rooh Afza" src="{{asset($val['photos'])}}"></a>
+													<a href=""><img alt="{{$val->name}}" src="{{asset($val['photos'])}}"></a>
 												</div>
 												<div class="product-info">
 													<h3 class="product-title"><a href="">{{$val->name}}</a></h3>
