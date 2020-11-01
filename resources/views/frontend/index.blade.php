@@ -185,8 +185,8 @@
                               data-slide="next"></a>
                         </div>
                      </div>
-                     <a class="title30 title-underline" href="{{Route('home.productlist')}}" id="content-desktop" style="float: right;font-size: 22px;margin-top: 3%;">View More</a>
-                     <a class="title30 title-underline" href="{{Route('home.productlist')}}" id="content-mobile" style="float: left;font-size: 13px;margin-top: 3%;margin-left: 3%;">View More</a>
+                     <a class="title30 title-underline" href="{{Route('userhome.products')}}" id="content-desktop" style="float: right;font-size: 22px;margin-top: 3%;">View More</a>
+                     <a class="title30 title-underline" href="{{Route('userhome.products')}}" id="content-mobile" style="float: left;font-size: 13px;margin-top: 3%;margin-left: 3%;">View More</a>
                   </div>
                   <div id="carousel-example" class="carousel slide" data-ride="carousel">
                      <!-- Wrapper for slides -->
@@ -357,8 +357,8 @@
                               data-slide="next"></a>
                         </div>
                      </div>
-                     <a class="title30 title-underline" href="{{Route('home.productlist')}}" id="content-desktop" style="float: right;font-size: 22px;margin-top: 3%;">View More</a>
-                     <a class="title30 title-underline" href="{{Route('home.productlist')}}" id="content-mobile" style="float: left;font-size: 13px;margin-top: 3%;margin-left: 3%;">View More</a>
+                     <a class="title30 title-underline" href="{{Route('userhome.products')}}" id="content-desktop" style="float: right;font-size: 22px;margin-top: 3%;">View More</a>
+                     <a class="title30 title-underline" href="{{Route('userhome.products')}}" id="content-mobile" style="float: left;font-size: 13px;margin-top: 3%;margin-left: 3%;">View More</a>
                   </div>
                   <div id="carousel-example1" class="carousel slide" data-ride="carousel">
                      <!-- Wrapper for slides -->

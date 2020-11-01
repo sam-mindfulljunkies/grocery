@@ -12,12 +12,12 @@
 */
 
 //demo
-Route::get('/demo/cron_1', 'DemoController@cron_1');
-Route::get('/demo/cron_2', 'DemoController@cron_2');
+// Route::get('/demo/cron_1', 'DemoController@cron_1');
+// Route::get('/demo/cron_2', 'DemoController@cron_2');
 
 
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 // Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 // Route::post('/language', 'LanguageController@changeLanguage')->name('language.change');
 // Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.change');
@@ -224,5 +224,5 @@ Auth::routes(['verify' => true]);
 
 /*Front end Controller */
 
-Route::get('/', 'FrontendController@getProducts')->name('home');
-Route::get('/products', 'FrontendController@getProducts')->name('home.products');
+Route::get('/', 'FrontendController@index')->name('userhome');
+Route::get('/products', 'FrontendController@getProducts')->name('userhome.products');
