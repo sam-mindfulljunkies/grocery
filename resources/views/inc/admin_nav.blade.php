@@ -37,7 +37,7 @@
                 </li>
                 @endif
                 <li class="" data-toggle="tooltip" data-placement="bottom" data-original-title="Browse Frontend">
-                    <a target="_blank" href="{{ route('home') }}">
+                    <a target="_blank" href="{{ Route('userhome') }}">
                         <i class="fa fa-globe"></i>
                     </a>
                 </li>

@@ -48,22 +48,22 @@ class HomeController extends Controller
         return view('frontend.user_registration');
     }
 
-    // public function user_login(Request $request)
-    // {
-    //     $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
-    //     if($user != null){
-    //         if(Hash::check($request->password, $user->password)){
-    //             if($request->has('remember')){
-    //                 auth()->login($user, true);
-    //             }
-    //             else{
-    //                 auth()->login($user, false);
-    //             }
-    //             return redirect()->route('dashboard');
-    //         }
-    //     }
-    //     return back();
-    // }
+    public function user_login(Request $request)
+    {
+        $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
+        if($user != null){
+            if(Hash::check($request->password, $user->password)){
+                if($request->has('remember')){
+                    auth()->login($user, true);
+                }
+                else{
+                    auth()->login($user, false);
+                }
+                return redirect()->route('dashboard');
+            }
+        }
+        return back();
+    }
 
     public function cart_login(Request $request)
     {
@@ -208,86 +208,86 @@ class HomeController extends Controller
         return view('frontend.index',compact('categories','banner','product','addons','brand'));
     }
 
-    // public function flash_deal_details($slug)
-    // {
-    //     $flash_deal = FlashDeal::where('slug', $slug)->first();
-    //     if($flash_deal != null)
-    //         return view('frontend.flash_deal_details', compact('flash_deal'));
-    //     else {
-    //         abort(404);
-    //     }
-    // }
+    public function flash_deal_details($slug)
+    {
+        $flash_deal = FlashDeal::where('slug', $slug)->first();
+        if($flash_deal != null)
+            return view('frontend.flash_deal_details', compact('flash_deal'));
+        else {
+            abort(404);
+        }
+    }
 
-    // public function load_featured_section(){
-    //     return view('frontend.partials.featured_products_section');
-    // }
+    public function load_featured_section(){
+        return view('frontend.partials.featured_products_section');
+    }
 
-    // public function load_best_selling_section(){
-    //     return view('frontend.partials.best_selling_section');
-    // }
+    public function load_best_selling_section(){
+        return view('frontend.partials.best_selling_section');
+    }
 
-    // public function load_home_categories_section(){
-    //     return view('frontend.partials.home_categories_section');
-    // }
+    public function load_home_categories_section(){
+        return view('frontend.partials.home_categories_section');
+    }
 
-    // public function load_best_sellers_section(){
-    //     return view('frontend.partials.best_sellers_section');
-    // }
+    public function load_best_sellers_section(){
+        return view('frontend.partials.best_sellers_section');
+    }
 
-    // public function trackOrder(Request $request)
-    // {
-    //     if($request->has('order_code')){
-    //         $order = Order::where('code', $request->order_code)->first();
-    //         if($order != null){
-    //             return view('frontend.track_order', compact('order'));
-    //         }
-    //     }
-    //     return view('frontend.track_order');
-    // }
+    public function trackOrder(Request $request)
+    {
+        if($request->has('order_code')){
+            $order = Order::where('code', $request->order_code)->first();
+            if($order != null){
+                return view('frontend.track_order', compact('order'));
+            }
+        }
+        return view('frontend.track_order');
+    }
 
-    // public function product(Request $request, $slug)
-    // {
-    //     $detailedProduct  = Product::where('slug', $slug)->first();
-    //     if($detailedProduct!=null && $detailedProduct->published){
-    //         updateCartSetup();
-    //         if($request->has('product_referral_code')){
-    //             Cookie::queue('product_referral_code', $request->product_referral_code, 43200);
-    //             Cookie::queue('referred_product_id', $detailedProduct->id, 43200);
-    //         }
-    //         if($detailedProduct->digital == 1){
-    //             return view('frontend.digital_product_details', compact('detailedProduct'));
-    //         }
-    //         else {
-    //             return view('frontend.product_details', compact('detailedProduct'));
-    //         }
-    //         // return view('frontend.product_details', compact('detailedProduct'));
-    //     }
-    //     abort(404);
-    // }
+    public function product(Request $request, $slug)
+    {
+        $detailedProduct  = Product::where('slug', $slug)->first();
+        if($detailedProduct!=null && $detailedProduct->published){
+            updateCartSetup();
+            if($request->has('product_referral_code')){
+                Cookie::queue('product_referral_code', $request->product_referral_code, 43200);
+                Cookie::queue('referred_product_id', $detailedProduct->id, 43200);
+            }
+            if($detailedProduct->digital == 1){
+                return view('frontend.digital_product_details', compact('detailedProduct'));
+            }
+            else {
+                return view('frontend.product_details', compact('detailedProduct'));
+            }
+            // return view('frontend.product_details', compact('detailedProduct'));
+        }
+        abort(404);
+    }
 
-    // public function shop($slug)
-    // {
-    //     $shop  = Shop::where('slug', $slug)->first();
-    //     if($shop!=null){
-    //         $seller = Seller::where('user_id', $shop->user_id)->first();
-    //         if ($seller->verification_status != 0){
-    //             return view('frontend.seller_shop', compact('shop'));
-    //         }
-    //         else{
-    //             return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));
-    //         }
-    //     }
-    //     abort(404);
-    // }
+    public function shop($slug)
+    {
+        $shop  = Shop::where('slug', $slug)->first();
+        if($shop!=null){
+            $seller = Seller::where('user_id', $shop->user_id)->first();
+            if ($seller->verification_status != 0){
+                return view('frontend.seller_shop', compact('shop'));
+            }
+            else{
+                return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));
+            }
+        }
+        abort(404);
+    }
 
-    // public function filter_shop($slug, $type)
-    // {
-    //     $shop  = Shop::where('slug', $slug)->first();
-    //     if($shop!=null && $type != null){
-    //         return view('frontend.seller_shop', compact('shop', 'type'));
-    //     }
-    //     abort(404);
-    // }
+    public function filter_shop($slug, $type)
+    {
+        $shop  = Shop::where('slug', $slug)->first();
+        if($shop!=null && $type != null){
+            return view('frontend.seller_shop', compact('shop', 'type'));
+        }
+        abort(404);
+    }
 
     public function listing(Request $request)
     {
@@ -296,82 +296,82 @@ class HomeController extends Controller
         return $this->search($request);
     }
 
-    // public function all_categories(Request $request)
-    // {
-    //     $categories = Category::all();
-    //     return view('frontend.all_category', compact('categories'));
-    // }
-    // public function all_brands(Request $request)
-    // {
-    //     $categories = Category::all();
-    //     return view('frontend.all_brand', compact('categories'));
-    // }
+    public function all_categories(Request $request)
+    {
+        $categories = Category::all();
+        return view('frontend.all_category', compact('categories'));
+    }
+    public function all_brands(Request $request)
+    {
+        $categories = Category::all();
+        return view('frontend.all_brand', compact('categories'));
+    }
 
-    // public function show_product_upload_form(Request $request)
-    // {
-    //     if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
-    //         if(Auth::user()->seller->remaining_uploads > 0){
-    //             $categories = Category::all();
-    //             return view('frontend.seller.product_upload', compact('categories'));
-    //         }
-    //         else {
-    //             flash('Upload limit has been reached. Please upgrade your package.')->warning();
-    //             return back();
-    //         }
-    //     }
-    //     $categories = Category::all();
-    //     return view('frontend.seller.product_upload', compact('categories'));
-    // }
+    public function show_product_upload_form(Request $request)
+    {
+        if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
+            if(Auth::user()->seller->remaining_uploads > 0){
+                $categories = Category::all();
+                return view('frontend.seller.product_upload', compact('categories'));
+            }
+            else {
+                flash('Upload limit has been reached. Please upgrade your package.')->warning();
+                return back();
+            }
+        }
+        $categories = Category::all();
+        return view('frontend.seller.product_upload', compact('categories'));
+    }
 
-    // public function show_product_edit_form(Request $request, $id)
-    // {
-    //     $categories = Category::all();
-    //     $product = Product::find(decrypt($id));
-    //     return view('frontend.seller.product_edit', compact('categories', 'product'));
-    // }
+    public function show_product_edit_form(Request $request, $id)
+    {
+        $categories = Category::all();
+        $product = Product::find(decrypt($id));
+        return view('frontend.seller.product_edit', compact('categories', 'product'));
+    }
 
-    // public function seller_product_list(Request $request)
-    // {
-    //     $search = null;
-    //     $products = Product::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
-    //     if ($request->has('search')) {
-    //         $search = $request->search;
-    //         $products = $products->where('name', 'like', '%'.$search.'%');
-    //     }
-    //     $products = $products->paginate(10);
-    //     return view('frontend.seller.products', compact('products', 'search'));
-    // }
+    public function seller_product_list(Request $request)
+    {
+        $search = null;
+        $products = Product::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
+        if ($request->has('search')) {
+            $search = $request->search;
+            $products = $products->where('name', 'like', '%'.$search.'%');
+        }
+        $products = $products->paginate(10);
+        return view('frontend.seller.products', compact('products', 'search'));
+    }
 
-    // public function ajax_search(Request $request)
-    // {
-    //     $keywords = array();
-    //     $products = Product::where('published', 1)->where('tags', 'like', '%'.$request->search.'%')->get();
-    //     foreach ($products as $key => $product) {
-    //         foreach (explode(',',$product->tags) as $key => $tag) {
-    //             if(stripos($tag, $request->search) !== false){
-    //                 if(sizeof($keywords) > 5){
-    //                     break;
-    //                 }
-    //                 else{
-    //                     if(!in_array(strtolower($tag), $keywords)){
-    //                         array_push($keywords, strtolower($tag));
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
+    public function ajax_search(Request $request)
+    {
+        $keywords = array();
+        $products = Product::where('published', 1)->where('tags', 'like', '%'.$request->search.'%')->get();
+        foreach ($products as $key => $product) {
+            foreach (explode(',',$product->tags) as $key => $tag) {
+                if(stripos($tag, $request->search) !== false){
+                    if(sizeof($keywords) > 5){
+                        break;
+                    }
+                    else{
+                        if(!in_array(strtolower($tag), $keywords)){
+                            array_push($keywords, strtolower($tag));
+                        }
+                    }
+                }
+            }
+        }
 
-    //     $products = filter_products(Product::where('published', 1)->where('name', 'like', '%'.$request->search.'%'))->get()->take(3);
+        $products = filter_products(Product::where('published', 1)->where('name', 'like', '%'.$request->search.'%'))->get()->take(3);
 
-    //     $subsubcategories = SubSubCategory::where('name', 'like', '%'.$request->search.'%')->get()->take(3);
+        $subsubcategories = SubSubCategory::where('name', 'like', '%'.$request->search.'%')->get()->take(3);
 
-    //     $shops = Shop::whereIn('user_id', verified_sellers_id())->where('name', 'like', '%'.$request->search.'%')->get()->take(3);
+        $shops = Shop::whereIn('user_id', verified_sellers_id())->where('name', 'like', '%'.$request->search.'%')->get()->take(3);
 
-    //     if(sizeof($keywords)>0 || sizeof($subsubcategories)>0 || sizeof($products)>0 || sizeof($shops) >0){
-    //         return view('frontend.partials.search_content', compact('products', 'subsubcategories', 'keywords', 'shops'));
-    //     }
-    //     return '0';
-    // }
+        if(sizeof($keywords)>0 || sizeof($subsubcategories)>0 || sizeof($products)>0 || sizeof($shops) >0){
+            return view('frontend.partials.search_content', compact('products', 'subsubcategories', 'keywords', 'shops'));
+        }
+        return '0';
+    }
 
     public function search(Request $request)
     {
@@ -522,151 +522,151 @@ class HomeController extends Controller
         return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color'));
     }
 
-    // public function product_content(Request $request){
-    //     $connector  = $request->connector;
-    //     $selector   = $request->selector;
-    //     $select     = $request->select;
-    //     $type       = $request->type;
-    //     productDescCache($connector,$selector,$select,$type);
-    // }
+    public function product_content(Request $request){
+        $connector  = $request->connector;
+        $selector   = $request->selector;
+        $select     = $request->select;
+        $type       = $request->type;
+        productDescCache($connector,$selector,$select,$type);
+    }
 
-    // public function home_settings(Request $request)
-    // {
-    //     return view('home_settings.index');
-    // }
+    public function home_settings(Request $request)
+    {
+        return view('home_settings.index');
+    }
 
-    // public function top_10_settings(Request $request)
-    // {
-    //     foreach (Category::all() as $key => $category) {
-    //         if(in_array($category->id, $request->top_categories)){
-    //             $category->top = 1;
-    //             $category->save();
-    //         }
-    //         else{
-    //             $category->top = 0;
-    //             $category->save();
-    //         }
-    //     }
+    public function top_10_settings(Request $request)
+    {
+        foreach (Category::all() as $key => $category) {
+            if(in_array($category->id, $request->top_categories)){
+                $category->top = 1;
+                $category->save();
+            }
+            else{
+                $category->top = 0;
+                $category->save();
+            }
+        }
 
-    //     foreach (Brand::all() as $key => $brand) {
-    //         if(in_array($brand->id, $request->top_brands)){
-    //             $brand->top = 1;
-    //             $brand->save();
-    //         }
-    //         else{
-    //             $brand->top = 0;
-    //             $brand->save();
-    //         }
-    //     }
+        foreach (Brand::all() as $key => $brand) {
+            if(in_array($brand->id, $request->top_brands)){
+                $brand->top = 1;
+                $brand->save();
+            }
+            else{
+                $brand->top = 0;
+                $brand->save();
+            }
+        }
 
-    //     flash(__('Top 10 categories and brands have been updated successfully'))->success();
-    //     return redirect()->route('home_settings.index');
-    // }
+        flash(__('Top 10 categories and brands have been updated successfully'))->success();
+        return redirect()->route('home_settings.index');
+    }
 
-    // public function variant_price(Request $request)
-    // {
-    //     $product = Product::find($request->id);
-    //     $str = '';
-    //     $quantity = 0;
+    public function variant_price(Request $request)
+    {
+        $product = Product::find($request->id);
+        $str = '';
+        $quantity = 0;
 
-    //     if($request->has('color')){
-    //         $data['color'] = $request['color'];
-    //         $str = Color::where('code', $request['color'])->first()->name;
-    //     }
+        if($request->has('color')){
+            $data['color'] = $request['color'];
+            $str = Color::where('code', $request['color'])->first()->name;
+        }
 
-    //     if(json_decode(Product::find($request->id)->choice_options) != null){
-    //         foreach (json_decode(Product::find($request->id)->choice_options) as $key => $choice) {
-    //             if($str != null){
-    //                 $str .= '-'.str_replace(' ', '', $request['attribute_id_'.$choice->attribute_id]);
-    //             }
-    //             else{
-    //                 $str .= str_replace(' ', '', $request['attribute_id_'.$choice->attribute_id]);
-    //             }
-    //         }
-    //     }
+        if(json_decode(Product::find($request->id)->choice_options) != null){
+            foreach (json_decode(Product::find($request->id)->choice_options) as $key => $choice) {
+                if($str != null){
+                    $str .= '-'.str_replace(' ', '', $request['attribute_id_'.$choice->attribute_id]);
+                }
+                else{
+                    $str .= str_replace(' ', '', $request['attribute_id_'.$choice->attribute_id]);
+                }
+            }
+        }
 
 
 
-    //     if($str != null && $product->variant_product){
-    //         $product_stock = $product->stocks->where('variant', $str)->first();
-    //         $price = $product_stock->price;
-    //         $quantity = $product_stock->qty;
-    //     }
-    //     else{
-    //         $price = $product->unit_price;
-    //         $quantity = $product->current_stock;
-    //     }
+        if($str != null && $product->variant_product){
+            $product_stock = $product->stocks->where('variant', $str)->first();
+            $price = $product_stock->price;
+            $quantity = $product_stock->qty;
+        }
+        else{
+            $price = $product->unit_price;
+            $quantity = $product->current_stock;
+        }
 
-    //     //discount calculation
-    //     $flash_deals = \App\FlashDeal::where('status', 1)->get();
-    //     $inFlashDeal = false;
-    //     foreach ($flash_deals as $key => $flash_deal) {
-    //         if ($flash_deal != null && $flash_deal->status == 1 && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first() != null) {
-    //             $flash_deal_product = \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first();
-    //             if($flash_deal_product->discount_type == 'percent'){
-    //                 $price -= ($price*$flash_deal_product->discount)/100;
-    //             }
-    //             elseif($flash_deal_product->discount_type == 'amount'){
-    //                 $price -= $flash_deal_product->discount;
-    //             }
-    //             $inFlashDeal = true;
-    //             break;
-    //         }
-    //     }
-    //     if (!$inFlashDeal) {
-    //         if($product->discount_type == 'percent'){
-    //             $price -= ($price*$product->discount)/100;
-    //         }
-    //         elseif($product->discount_type == 'amount'){
-    //             $price -= $product->discount;
-    //         }
-    //     }
+        //discount calculation
+        $flash_deals = \App\FlashDeal::where('status', 1)->get();
+        $inFlashDeal = false;
+        foreach ($flash_deals as $key => $flash_deal) {
+            if ($flash_deal != null && $flash_deal->status == 1 && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first() != null) {
+                $flash_deal_product = \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first();
+                if($flash_deal_product->discount_type == 'percent'){
+                    $price -= ($price*$flash_deal_product->discount)/100;
+                }
+                elseif($flash_deal_product->discount_type == 'amount'){
+                    $price -= $flash_deal_product->discount;
+                }
+                $inFlashDeal = true;
+                break;
+            }
+        }
+        if (!$inFlashDeal) {
+            if($product->discount_type == 'percent'){
+                $price -= ($price*$product->discount)/100;
+            }
+            elseif($product->discount_type == 'amount'){
+                $price -= $product->discount;
+            }
+        }
 
-    //     if($product->tax_type == 'percent'){
-    //         $price += ($price*$product->tax)/100;
-    //     }
-    //     elseif($product->tax_type == 'amount'){
-    //         $price += $product->tax;
-    //     }
-    //     return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity, 'digital' => $product->digital);
-    // }
+        if($product->tax_type == 'percent'){
+            $price += ($price*$product->tax)/100;
+        }
+        elseif($product->tax_type == 'amount'){
+            $price += $product->tax;
+        }
+        return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity, 'digital' => $product->digital);
+    }
 
-    // public function sellerpolicy(){
-    //     return view("frontend.policies.sellerpolicy");
-    // }
+    public function sellerpolicy(){
+        return view("frontend.policies.sellerpolicy");
+    }
 
-    // public function returnpolicy(){
-    //     return view("frontend.policies.returnpolicy");
-    // }
+    public function returnpolicy(){
+        return view("frontend.policies.returnpolicy");
+    }
 
-    // public function supportpolicy(){
-    //     return view("frontend.policies.supportpolicy");
-    // }
+    public function supportpolicy(){
+        return view("frontend.policies.supportpolicy");
+    }
 
-    // public function terms(){
-    //     return view("frontend.policies.terms");
-    // }
+    public function terms(){
+        return view("frontend.policies.terms");
+    }
 
-    // public function privacypolicy(){
-    //     return view("frontend.policies.privacypolicy");
-    // }
+    public function privacypolicy(){
+        return view("frontend.policies.privacypolicy");
+    }
 
-    // public function get_pick_ip_points(Request $request)
-    // {
-    //     $pick_up_points = PickupPoint::all();
-    //     return view('frontend.partials.pick_up_points', compact('pick_up_points'));
-    // }
+    public function get_pick_ip_points(Request $request)
+    {
+        $pick_up_points = PickupPoint::all();
+        return view('frontend.partials.pick_up_points', compact('pick_up_points'));
+    }
 
-    // public function get_category_items(Request $request){
-    //     $category = Category::findOrFail($request->id);
-    //     return view('frontend.partials.category_elements', compact('category'));
-    // }
+    public function get_category_items(Request $request){
+        $category = Category::findOrFail($request->id);
+        return view('frontend.partials.category_elements', compact('category'));
+    }
 
-    // public function premium_package_index()
-    // {
-    //     $customer_packages = CustomerPackage::all();
-    //     return view('frontend.customer_packages_lists', compact('customer_packages'));
-    // }
+    public function premium_package_index()
+    {
+        $customer_packages = CustomerPackage::all();
+        return view('frontend.customer_packages_lists', compact('customer_packages'));
+    }
     public function getProducts(){
         $products =  Product::all();
         return view('frontend.products',compact('products'));        
