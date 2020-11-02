@@ -230,3 +230,9 @@ Route::get('/products/subcat/{id}', 'FrontendController@filterSubcat')->name('us
 Route::get('/products/cat/{id}', 'FrontendController@filterCat')->name('userhome.filterCat');
 Route::get('/home/about', 'FrontendController@about')->name('userhome.about');
 Route::get('/home/contact', 'FrontendController@contact')->name('userhome.contact');
+
+
+Route::get('/home/add_to_cart', 'FrontendController@contact')->name('userhome.add_to_cart');
+Route::get('/home/login_signup', 'FrontendController@contact')->name('userhome.login');
+Route::get('/home/product/detail', 'FrontendController@contact')->name('userhome.product_detail');
+Route::get('/home/cart_detail', 'FrontendController@contact')->name('userhome.cart');

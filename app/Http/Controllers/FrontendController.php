@@ -44,4 +44,21 @@ class FrontendController extends Controller
      return view('frontend.contact');
 
     }
+
+    public function cart(){
+     return view('frontend.cart');
+
+    }
+    public function product_details(){
+     return view('frontend.product_details');
+
+    }
+    public function add_to_cart(){
+     return view('frontend.add_to_cart');
+
+    }
+    public function login_signup(){
+     return view('frontend.login_signup');
+
+    }
 }
