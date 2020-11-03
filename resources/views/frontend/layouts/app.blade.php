@@ -30,6 +30,8 @@ $categories = $new->getCategory();
       <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/theme.css')}}" />
       <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/responsive.css')}}" />
       <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/browser.css')}}" />
+      <link rel="stylesheet" type="text/css" href="{{asset('frontend/content/theme.css')}}" media="all">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
       <script type="text/javascript">  var translate_src = 'en';</script>
       <script src='https://kit.fontawesome.com/a076d05399.js'></script>
    </head>
@@ -51,7 +53,13 @@ $categories = $new->getCategory();
       <!-- Begin Translation Button -->
       <script type="text/javascript"> var translate_src = 'en';</script>
       <script type="text/javascript" src="https://www.certifiedchinesetranslation.com/translate.js"></script>
-      <!-- End Translation Button -->
+      <script type="text/javascript" src="{{asset('frontend/content/jquery-3.2.1.min.js.download')}}"></script>
+      <script type="text/javascript" src="{{asset('frontend/content/bootstrap.min.js.download')}}"></script>
+      <!-- <script type="text/javascript" src="content/jquery-ui.min.js.download"></script> -->
+      <script type="text/javascript" src="{{asset('frontend/content/jquery.jcarousellite.min.js.download')}}"></script>
+      <script type="text/javascript" src="{{asset('frontend/content/jquery.elevatezoom.js.download')}}"></script>
+      <script type="text/javascript" src="{{asset('frontend/content/theme.js.download')}}"></script>
+         <!-- End Translation Button -->
    </body>
 </html>
 <style type="text/css">
@@ -64,6 +72,9 @@ $categories = $new->getCategory();
    #lst
    {
    list-style: none;
+   }
+   .main-nav > ul > li.menu-item-has-children > a::after{
+      display: none;
    }
 </style>
 <!--Start of Tawk.to Script-->
@@ -84,7 +95,6 @@ $categories = $new->getCategory();
       $("a.current-page").removeClass('active');
 
     })
-
 </script>
 <!--End of Tawk.to Script-->
 

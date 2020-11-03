@@ -49,8 +49,12 @@ class FrontendController extends Controller
      return view('frontend.cart');
 
     }
-    public function product_details(){
-     return view('frontend.product_details');
+    public function product_details($id){
+        $product = Product::with('stocks')->where('products.id',$id)->first();
+        // echo "<pre>";
+        // print_r($product->first());
+        // exit;
+     return view('frontend.product_details',compact('product'));
 
     }
     public function add_to_cart(){

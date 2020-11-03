@@ -69,7 +69,7 @@ $categories = $new->getCategory();
 										<div class="col-md-4 col-sm-6 col-xs-6">
 											<div class="item-product1 style-border">
 												<div class="product-thumb">
-													<a href=""><img alt="{{$val->name}}" src="{{asset($val['photos'])}}"></a>
+													<a href="{{Route('userhome.product_details',['id'=>$val->id])}}"><img alt="{{$val->name}}" src="{{asset($val['photos'])}}"></a>
 												</div>
 												<div class="product-info">
 													<h3 class="product-title"><a href="">{{$val->name}}</a></h3>

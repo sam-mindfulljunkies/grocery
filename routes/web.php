@@ -234,5 +234,5 @@ Route::get('/home/contact', 'FrontendController@contact')->name('userhome.contac
 
 Route::get('/home/add_to_cart', 'FrontendController@contact')->name('userhome.add_to_cart');
 Route::get('/home/login_signup', 'FrontendController@contact')->name('userhome.login');
-Route::get('/home/product/detail', 'FrontendController@contact')->name('userhome.product_detail');
+Route::get('/product/detail/{id}', 'FrontendController@product_details')->name('userhome.product_details');
 Route::get('/home/cart_detail', 'FrontendController@contact')->name('userhome.cart');
