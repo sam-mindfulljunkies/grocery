@@ -12,9 +12,9 @@ $categories = $new->getCategory();
             <div class="row">
                <div class="col-md-4 col-sm-12 col-xs-4">
                   <ul class="top-header-link list-inline-block pull-left">
-                     <!-- <li><a href="#" class="white">We guarantee on time delivery, and the best quality!</a></li> -->
+                     <!-- <li><a href=javascript:; class="white">We guarantee on time delivery, and the best quality!</a></li> -->
                      <li style="padding-left: 17px;"><i class="fa fa-shipping-fast" style="width:3px;"></i></li>
-                     <li> <a href="#" class="white" style="color: #f67500;">FREE SHIPPING ON ORDERS €29+ WITHIN GERMANY</a> </li>
+                     <li> <a href=javascript:; class="white" style="color: #f67500;">FREE SHIPPING ON ORDERS €29+ WITHIN GERMANY</a> </li>
                      <!-- <li>QUESTIONS?WRITE US AN <a href="">E-MAIL</a></li> -->
                   </ul>
                </div>
@@ -47,10 +47,10 @@ $categories = $new->getCategory();
                   </div>
                   <div class="col-md-6 col-sm-12 col-xs-3">
                      <ul class="list-inline-block pull-right top-profile">
-                        <!-- <li> <a href="#" class="white">Shipping Policy </a> </li>
-                           <li> <a href="#" class="white">Wishlist </a> </li>
-                           <li> <a href="#" class="white">Checkout</a> </li> -->
-                        <li> <a href="#" class="white" style="color: #f67500;"> Login or Register&nbsp;<i class="fa fa-user" aria-hidden="true"></i></a> </li>
+                        <!-- <li> <a href=javascript:; class="white">Shipping Policy </a> </li>
+                           <li> <a href=javascript:; class="white">Wishlist </a> </li>
+                           <li> <a href=javascript:; class="white">Checkout</a> </li> -->
+                        <li> <a href=javascript:; class="white" style="color: #f67500;"> Login or Register&nbsp;<i class="fa fa-user" aria-hidden="true"></i></a> </li>
                      </ul>
                   </div>
                </div>
@@ -63,10 +63,10 @@ $categories = $new->getCategory();
                <div class="col-md-2 col-sm-2 col-xs-3" style="float: right;">
                  
                   <ul class="list-inline-block pull-right top-profile" style="margin-left: -27px;">
-                     <!-- <li> <a href="#" class="white">Shipping Policy </a> </li>
-                        <li> <a href="#" class="white">Wishlist </a> </li>
-                        <li> <a href="#" class="white">Checkout</a> </li> -->
-                     <li style="font-size: 10px;"> <a href="#" class="white" style="color: #f67500;"> Login or Register&nbsp;<i class="fa fa-user" aria-hidden="true" style="max-width: 5%;"></i></a> </li>
+                     <!-- <li> <a href=javascript:; class="white">Shipping Policy </a> </li>
+                        <li> <a href=javascript:; class="white">Wishlist </a> </li>
+                        <li> <a href=javascript:; class="white">Checkout</a> </li> -->
+                     <li style="font-size: 10px;"> <a href=javascript:; class="white" style="color: #f67500;"> Login or Register&nbsp;<i class="fa fa-user" aria-hidden="true" style="max-width: 5%;"></i></a> </li>
                   </ul>
                </div>
                <div class="col-md-5 col-sm-3 col-xs-3" style="float: right;">
@@ -86,9 +86,9 @@ $categories = $new->getCategory();
 
                <div class="col-md-3 col-sm-4 col-xs-3" style="float: right;">
                   <ul class="top-header-link list-inline-block pull-left">
-                     <!-- <li><a href="#" class="white">We guarantee on time delivery, and the best quality!</a></li> -->
+                     <!-- <li><a href=javascript:; class="white">We guarantee on time delivery, and the best quality!</a></li> -->
                      <li style="margin-left: 0px;"><i class="fa fa-shipping-fast" style="width:3px;"></i></li>
-                     <li> <a href="#" class="white" style="color: #f67500;">Shipping</a> </li>
+                     <li> <a href=javascript:; class="white" style="color: #f67500;">Shipping</a> </li>
                   </ul>
                </div>
                
@@ -101,7 +101,7 @@ $categories = $new->getCategory();
             <div class="row" id="content-desktop">
                <div class="col-md-4 col-sm-4 col-xs-12">
                   <div class="logo logo2">
-                     <a href="index.php"><img src="{{asset('frontend/images/rlogo1.png')}}" alt="" style="padding-bottom: 11px;"></a>
+                     <a href="javascript:;"><img src="{{asset('frontend/images/rlogo1.png')}}" alt="" style="padding-bottom: 11px;"></a>
                   </div>
                </div>
                <div class="col-md-5 col-sm-4 col-xs-12">
@@ -121,9 +121,9 @@ $categories = $new->getCategory();
                </div>
                <div class="col-md-3 col-sm-4 col-xs-12">
                   <div class="mini-cart-box mini-cart2 pull-right">
-                     <a class="mini-cart-link" href=""> <span class="mini-cart-icon"></span> 
+                     <a class="mini-cart-link" href="{{route('userhome.cart')}}"> <span class="mini-cart-icon"></span> 
                      </a>
-                     <div class="mini-cart-content text-left">
+                     <!-- <div class="mini-cart-content text-left">
                         <h2 class="title18 color">(2) ITEMS IN MY CART</h2>
                         <div class="list-mini-cart-item">
                            <div class="product-mini-cart table">
@@ -132,7 +132,7 @@ $categories = $new->getCategory();
                                         src="{{asset('frontend/images/products/fresh-green-round.jpg')}}"></a>
                               </div>
                               <div class="product-info">
-                                 <h3 class="product-title"><a href="#">Fresh Green Round Aubergine</a></h3>
+                                 <h3 class="product-title"><a href=javascript:;>Fresh Green Round Aubergine</a></h3>
                                  <!-- <div class="product-price"> <ins><span>€400.00</span></ins> <del><span>€520.00</span></del> </div> -->
                               </div>
                            </div>
@@ -141,13 +141,13 @@ $categories = $new->getCategory();
                                  <a href="" class="product-thumb-link"><img alt="" src="{{asset('frontend/images/products/fresh-green-round.jpg')}}"></a>
                               </div>
                               <div class="product-info">
-                                 <h3 class="product-title"><a href="#">Fresh Green Round Aubergine</a></h3>
+                                 <h3 class="product-title"><a href=javascript:;>Fresh Green Round Aubergine</a></h3>
                                  <!-- <div class="product-price"> <ins><span>€400.00</span></ins> <del><span>€520.00</span></del> </div> -->
                               </div>
                            </div>
                         </div>
                         <!-- <div class="mini-cart-total  clearfix"> <strong class="pull-left title18">TOTAL</strong> <span class="pull-right color title18">€800.00</span> </div> -->
-                        <div class="mini-cart-button"> <a class="mini-cart-view shop-button" href="#">View cart </a> <a class="mini-cart-checkout shop-button" href="#">Checkout</a> </div>
+                        <div class="mini-cart-button"> <a class="mini-cart-view shop-button" href=javascript:;>View cart </a> <a class="mini-cart-checkout shop-button" href=javascript:;>Checkout</a> </div>
                      </div>
                   </div>
                </div>
@@ -155,7 +155,7 @@ $categories = $new->getCategory();
             <div class="row"  id="content-mobile">
                <div class="col-md-4 col-sm-5 col-xs-5">
                   <div class="">
-                     <a href="index.php"><img src="{{asset('frontend/images/rlogom1.png')}}" alt="" style="padding-bottom: 11px;max-width: none;"></a>
+                     <a href="{{Route('userhome')}}"><img src="{{asset('frontend/images/rlogom1.png')}}" alt="" style="padding-bottom: 11px;max-width: none;"></a>
                   </div>
                </div>
                <div class="col-md-5 col-sm-7 col-xs-7">
@@ -171,7 +171,7 @@ $categories = $new->getCategory();
                                  <a href="" class="product-thumb-link"><img alt="" src="{{asset('frontend/images/products/fresh-green-round.jpg')}}"></a>
                               </div>
                               <div class="product-info">
-                                 <h3 class="product-title"><a href="#">Fresh Green Round Aubergine</a></h3>
+                                 <h3 class="product-title"><a href=javascript:;>Fresh Green Round Aubergine</a></h3>
                                  <!-- <div class="product-price"> <ins><span>€400.00</span></ins> <del><span>€520.00</span></del> </div> -->
                               </div>
                            </div>
@@ -180,13 +180,13 @@ $categories = $new->getCategory();
                                  <a href="" class="product-thumb-link"><img alt="" src="{{asset('frontend/images/products/fresh-green-round.jpg')}}"></a>
                               </div>
                               <div class="product-info">
-                                 <h3 class="product-title"><a href="#">Fresh Green Round Aubergine</a></h3>
+                                 <h3 class="product-title"><a href=javascript:;>Fresh Green Round Aubergine</a></h3>
                                  <!-- <div class="product-price"> <ins><span>€400.00</span></ins> <del><span>€520.00</span></del> </div> -->
                               </div>
                            </div>
                         </div>
                         <!-- <div class="mini-cart-total  clearfix"> <strong class="pull-left title18">TOTAL</strong> <span class="pull-right color title18">€800.00</span> </div> -->
-                        <div class="mini-cart-button"> <a class="mini-cart-view shop-button" href="#">View cart </a> <a class="mini-cart-checkout shop-button" href="#">Checkout</a> </div>
+                        <div class="mini-cart-button"> <a class="mini-cart-view shop-button" href=javascript:;>View cart </a> <a class="mini-cart-checkout shop-button" href=javascript:;>Checkout</a> </div>
                      </div>
                   </div>
                   
@@ -229,7 +229,7 @@ $categories = $new->getCategory();
                   <li><a href="{{Route('userhome.about')}}">About Us</a></li>
                   <li><a href="{{Route('userhome.contact')}}">Contact Us</a></li>
                </ul>
-               <a href="#" class="toggle-mobile-menu"><span></span></a>
+               <a href=javascript:; class="toggle-mobile-menu"><span></span></a>
                <!-- <form class="search-form right-icon search-form8">
                   <div class="submit-form">
                      <input type="submit" value="" /> </div>

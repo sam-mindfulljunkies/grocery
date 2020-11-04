@@ -8,6 +8,9 @@ Use App\Category;
 use App\Banner;
 use App\Addons;
 use App\Brand;
+use App\Wishlist;
+use App\Models\Cart;
+
 
 class FrontendController extends Controller
 {
@@ -46,7 +49,8 @@ class FrontendController extends Controller
     }
 
     public function cart(){
-     return view('frontend.cart');
+        $carts  = Cart::with('product')->where('carts.user_id',1)->get();
+     return view('frontend.cart',compact('carts'));
 
     }
     public function product_details($id){
@@ -65,4 +69,43 @@ class FrontendController extends Controller
      return view('frontend.login_signup');
 
     }
+
+    public function add_to_wishlist(Request $request){
+        $product_id = $request->id;
+        $product = Wishlist::where('user_id',1)->where('product_id',$request->id)->first();
+        // echo "<pre>";
+        // print_r($product);
+        // exit;
+        if(!empty($product)){
+            return Response()->json(['status'=> 412, 'msg'=>'Already Exist in Wishlist']);
+        }else{
+            $wishlist = new Wishlist();
+            $wishlist->user_id = 1;
+            $wishlist->product_id = $request->id;
+            $wishlist->save();
+            return Response()->json(['status'=> 200, 'msg'=>'Successfully added']);   
+        }
+    }
+
+    public function add_cart(Request $request){
+        $product = Cart::where('user_id',1)->where('product_id',$request->id)->first();
+        if(!empty($product)){
+            return Response()->json(['status'=> 412, 'msg'=>'Already Exist in Cart']);
+        }else{
+            $wishlist = new Cart();
+            $wishlist->user_id = 1;
+            $wishlist->product_id = $request->id;
+            $wishlist->variation = $request->variation;
+            $wishlist->price = $request->price;
+            $wishlist->tax = $request->tax;
+            $wishlist->shipping_cost = $request->shipping_cost;
+            $wishlist->quantity = 1;
+            $wishlist->save();
+            return Response()->json(['status'=> 200, 'msg'=>'Successfully added']);   
+        }
+    }
+
+    public function checkout_product(){
+        return view('frontend.checkout');
+    }   
 }

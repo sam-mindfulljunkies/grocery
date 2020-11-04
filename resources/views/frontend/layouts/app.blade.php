@@ -59,6 +59,7 @@ $categories = $new->getCategory();
       <script type="text/javascript" src="{{asset('frontend/content/jquery.jcarousellite.min.js.download')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/content/jquery.elevatezoom.js.download')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/content/theme.js.download')}}"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
          <!-- End Translation Button -->
    </body>
 </html>
@@ -79,6 +80,14 @@ $categories = $new->getCategory();
 </style>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
+   $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+}); 
+   
+
+
    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
    (function(){
    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -96,5 +105,7 @@ $categories = $new->getCategory();
 
     })
 </script>
+@stack('scripts')
+
 <!--End of Tawk.to Script-->
 

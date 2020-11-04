@@ -12,7 +12,7 @@ $categories = $new->getCategory();
 		<div class="content-page">
 			<div class="container">
                <div class="bread-crumb bg-white border radius6">
-					<a href="index.php">Home</a> <a href="#">Indian</a> <span class="color"><!-- Festival Specialities --></span>
+					<a href="javascript:;">Home</a> <a href="javascript:;">Indian</a> <span class="color"><!-- Festival Specialities --></span>
 				</div>
      			<div class="main-content-page">
 					<div class="row">
@@ -39,7 +39,7 @@ $categories = $new->getCategory();
 												</div>
 												<div class="col-md-4 col-sm-4">
 													<div class="banner-adv fade-out-in">
-														<a href="#" class="adv-thumb-link"><img alt="" src="images/home/home4/cat-mega-thumb.png"></a>
+														<a href="javascript:;" class="adv-thumb-link"><img alt="" src="images/home/home4/cat-mega-thumb.png"></a>
 													</div>
 												</div>
 											</div>
@@ -76,10 +76,22 @@ $categories = $new->getCategory();
 													<div class="product-price">
 														<ins><span>€{{$val->unit_price}}</span></ins>
 													</div>
+													<input type="hidden" id="product_id" name="product_id" @if(isset($product))value="{{$val->id}}"@endif>
+
+													<input type="hidden" name="tax"  id="tax" @if(isset($val->tax))value="{{$val->tax}}" @endif>
+
+													<input type="hidden" id="variation" name="variation" @if(isset($val->variation))value="{{$val->variation}}" @endif>
+
+													<input type="hidden" id="price" name="price" @if(isset($val->purchase_price)) value="{{$val->purchase_price}}" @endif>
+
+
+													<input type="hidden" id="shipping_cost" name="shipping_cost" @if(isset($val->shipping_cost)) value="{{$val->shipping_cost}}" @endif>
+
+
 													<div class="product-extra-link">
-														<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-														<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-														<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+														<a href="javascript:;" class="wishlist-link wishlistadd" data-id="{{$val->id}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+														<a href="javascript:;" class="addcart-link cartitemadd" data-id="{{$val->id}}"><i class="fa fa-shopping-basket" aria-hidden="true" ></i><span>Add to cart</span></a>
+														<a href="javascript:;" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 													</div>
 												</div>
 											</div>
@@ -89,9 +101,9 @@ $categories = $new->getCategory();
 									</div>
 								</div>
 								<div class="pagi-nav-bar text-center"><!-- 
-									<a href="#" class="shop-button style2 btn-small prev-page"><i class="fa fa-caret-left" aria-hidden="true"></i></a> -->
-									<!-- <a href="#" class=""> -->{{$products->links()}}<!-- </a> -->
-									<!-- <a href="#" class="shop-button style2 btn-small next-page"><i class="fa fa-caret-right" aria-hidden="true"></i></a> -->
+									<a href="javascript:;" class="shop-button style2 btn-small prev-page"><i class="fa fa-caret-left" aria-hidden="true"></i></a> -->
+									<!-- <a href="javascript:;" class=""> -->{{$products->links()}}<!-- </a> -->
+									<!-- <a href="javascript:;" class="shop-button style2 btn-small next-page"><i class="fa fa-caret-right" aria-hidden="true"></i></a> -->
 								</div>
 							</div>
 						</div>
@@ -103,12 +115,12 @@ $categories = $new->getCategory();
 	</div>
 	<!-- End Content -->
 	
-	 <a href="#" class="scroll-top radius6"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-	  <div class="wishlist-mask">
+	 <a href="javascript:;" class="scroll-top radius6"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+	  <!-- <div class="wishlist-mask">
 		<div class="wishlist-popup"> <span class="popup-icon"><i class="fa fa-bullhorn" aria-hidden="true"></i></span>
-			<p class="wishlist-alert">"Good shop Product" was added to wishlist</p>
-			<div class="wishlist-button"> <a href="#">Continue Shopping (<span class="wishlist-countdown">10</span>)</a> <a href="#">Go To Shopping Cart</a> </div>
-		</div>
+			<p class="wishlist-alert">Please wait while we are adding product to your wish listg</p>
+			<div class="wishlist-button"> <a href="javascript:;">Continue Shopping (<span class="wishlist-countdown">10</span>)</a> <a href="{{Route('userhome.cart')}}">Go To Shopping Cart</a> </div>
+		</div> -->
 	</div>
 	<div id="loading">
 		<div id="loading-center">
@@ -124,3 +136,49 @@ $categories = $new->getCategory();
 	</div>
 
 @endsection
+@push('scripts')
+<script type="text/javascript">
+		$(document).on('click',".wishlistadd",function(){	
+			var id = $(this).data('id');
+			 $.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.add_to_wishlist')}}",
+               data:{'id':id,'_token':"{{csrf_token()}}"},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+               			swal("success", data.msg, "success");			
+               		}
+               		if(data.status == 412){
+						swal(data.msg);
+               		}
+               }
+            });
+		});
+
+		$(document).on('click',".cartitemadd",function(){
+				var id = $(this).data('id');
+				var tax = $("#tax").val();
+				var price = $("#price").val();
+				var shipping_cost = $('#shipping_cost').val();
+				var variation = $('#variation').val();
+			 
+			 $.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.add_to_cart')}}",
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+               			swal("success", data.msg, "success");			
+               		}
+               		if(data.status == 412){
+						swal(data.msg);
+               		}
+               }
+            });						
+		});
+</script>
+@endpush

@@ -232,7 +232,17 @@ Route::get('/home/about', 'FrontendController@about')->name('userhome.about');
 Route::get('/home/contact', 'FrontendController@contact')->name('userhome.contact');
 
 
-Route::get('/home/add_to_cart', 'FrontendController@contact')->name('userhome.add_to_cart');
 Route::get('/home/login_signup', 'FrontendController@contact')->name('userhome.login');
 Route::get('/product/detail/{id}', 'FrontendController@product_details')->name('userhome.product_details');
-Route::get('/home/cart_detail', 'FrontendController@contact')->name('userhome.cart');
+
+
+
+Route::post('/home/add_to_cart', 'FrontendController@add_cart')->name('userhome.add_to_cart');
+Route::get('/home/cart_detail', 'FrontendController@cart')->name('userhome.cart');
+Route::post('/wishlist','FrontendController@add_to_wishlist')->name('userhome.add_to_wishlist');
+Route::get('/home/product/checkout','FrontendController@checkout_product')->name('userhome.checkout_product');
+Route::get('/product/checkout',function(){
+	dd('hi');
+});
+// Route::group(['middleware' => ['auth']], function(){
+// });

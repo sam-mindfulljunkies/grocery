@@ -1,11 +1,31 @@
-@extends('frontend.layouts.app')
-@section('content')
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="robots" content="">
+	<meta name="revisit-after" content="1 days">
+	<title></title>
+	<link href="content/css" rel="stylesheet">
+	<!-- <link rel="stylesheet" type="text/css" href="content/font-awesome.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="content/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="content/color.css" media="all"> -->
+	<link rel="stylesheet" type="text/css" href="content/theme.css" media="all">
+	<!-- <link rel="stylesheet" type="text/css" href="content/responsive.css" media="all"> -->
+	 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<style type="text/css">.fancybox-margin{margin-right:17px;}</style>
+</head>
+<body class="preload" style="background:#fafafa">
 <div class="wrap">
 	<section id="content">
 		<div class="content-page">
 			<div class="container">
 				<div class="bread-crumb bg-white border radius6">
-					<a href=javascript:;>Home</a> <span class="color">Cart</span>
+					<a href="#">Home</a> <span class="color">Cart</span>
 				</div>
 				<div class="content-cart-checkout woocommerce">
 					<h2 class="title30 font-bold text-uppercase">Cart</h2>
@@ -23,63 +43,54 @@
 									</tr>
 								</thead>
 								<tbody>
-									@php 
-									$total = 0;
-									@endphp
-									@foreach($carts as $val)
 									<tr class="cart_item">
 										<td class="product-remove">
-											<a class="remove" href=javascript:;><i class="fa fa-times"></i></a>
+											<a class="remove" href="#"><i class="fa fa-times"></i></a>
 										</td>
 										<td class="product-thumbnail">
-											<a href=javascript:;><img  src="{{asset($val->product->photos)}}" alt=""/></a>					
+											<a href="#"><img  src="content/goodshop_bakery_12.jpg" alt=""/></a>					
 										</td>
 										<td class="product-name" data-title="Product">
-											@if(isset($val->product->name))<a href=javascript:;>{{$val->product->name}} @endif</a>					
+											<a href="#">Theme Fusion item name</a>					
 										</td>
 										<td class="product-price" data-title="Price">
-											<span class="amount">@if(isset($val->price))<a href=javascript:;>€{{$val->price}} @endif</span>					
+											<span class="amount">$68.00</span>					
 										</td>
 										<td class="product-quantity" data-title="Quantity">
 											<div class="detail-qty info-qty border radius6 text-center">
-												<a href=javascript:; class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-												@if(isset($val->quantity))<span class="qty-val">{{$val->quantity}}</span>@endif
-												<a href=javascript:; class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+												<a href="#" class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+												<span class="qty-val">2</span>
+												<a href="#" class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 											</div>		
 										</td>
 										<td class="product-subtotal" data-title="Total">
-											@if(isset($val->price))<span class="amount">€{{($val->price + $val->product_shipping_cost) * $val->quantity}} </span>@endif					
+											<span class="amount">$68.00</span>					
 										</td>
-											@php 
-											$total += ($val->price + $val->product_shipping_cost) * $val->quantity;
-											@endphp
 									</tr>
-									@endforeach
-
-									<!-- <tr class="cart_item">
+									<tr class="cart_item">
 										<td class="product-remove">
-											<a class="remove" href=javascript:;><i class="fa fa-times"></i></a>					
+											<a class="remove" href="#"><i class="fa fa-times"></i></a>					
 										</td>
 										<td class="product-thumbnail">
-											<a href=javascript:;><img  src="content/goodshop_bakery_12.jpg" alt=""/></a>					
+											<a href="#"><img  src="content/goodshop_bakery_12.jpg" alt=""/></a>					
 										</td>
 										<td class="product-name" data-title="Product">
-											<a href=javascript:;>Theme Fusion item name</a>					
+											<a href="#">Theme Fusion item name</a>					
 										</td>
 										<td class="product-price" data-title="Price">
 											<span class="amount">$19.00</span>					
 										</td>
 										<td class="product-quantity" data-title="Quantity">
 											<div class="detail-qty info-qty border radius6 text-center">
-												<a href=javascript:; class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+												<a href="#" class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
 												<span class="qty-val">2</span>
-												<a href=javascript:; class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+												<a href="#" class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 											</div>			
 										</td>
 										<td class="product-subtotal" data-title="Total">
 											<span class="amount">$38.00</span>					
 										</td>
-									</tr> -->
+									</tr>
 									<tr>
 										<td class="actions" colspan="6">
 											<div class="coupon">
@@ -102,7 +113,7 @@
 									<tbody>
 										<tr class="cart-subtotal">
 											<th>Subtotal</th>
-											<td><strong class="amount">€{{$total}}</strong></td>
+											<td><strong class="amount">$106.00</strong></td>
 										</tr>
 										<tr class="shipping">
 											<th>Shipping</th>
@@ -131,7 +142,7 @@
 								</table>
 							</div>
 							<div class="wc-proceed-to-checkout">
-								<a class="checkout-button button alt wc-forward bg-color" href="{{Route('userhome.checkout_product')}}">Proceed to Checkout</a>
+								<a class="checkout-button button alt wc-forward bg-color" href="#">Proceed to Checkout</a>
 							</div>
 						</div>
 					</div>
@@ -141,7 +152,8 @@
 		<!-- End Content Pages -->
 	</section>
 	<!-- End Content -->
-	<a href=javascript:; class="scroll-top radius6"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+
+	<a href="#" class="scroll-top radius6"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 	<div id="loading">
 		<div id="loading-center">
 			<div id="loading-center-absolute">
@@ -154,9 +166,11 @@
 	</div>
 	<!-- End Preload -->
 </div>
-@endsection
-
-@push('script')
-
-
-@endpush
+<script type="text/javascript" src="content/jquery-3.2.1.min.js.download"></script>
+<script type="text/javascript" src="content/bootstrap.min.js.download"></script>
+<!-- <script type="text/javascript" src="content/jquery-ui.min.js.download"></script> -->
+<script type="text/javascript" src="content/jquery.jcarousellite.min.js.download"></script>
+<script type="text/javascript" src="content/jquery.elevatezoom.js.download"></script>
+<script type="text/javascript" src="content/theme.js.download"></script>
+</body>
+</html>
