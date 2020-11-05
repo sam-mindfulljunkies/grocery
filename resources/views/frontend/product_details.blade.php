@@ -1,16 +1,12 @@
 @extends('frontend.layouts.app')
 @section('content')
-	<!-- <link rel="stylesheet" type="text/css" href="content/color.css" media="all"> -->
-	<!-- <link rel="stylesheet" type="text/css" href="content/responsive.css" media="all"> -->
-<style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
-<body class="" style="background:#fafafa">
 <div class="wrap">
 
 	<div id="content">
 		<div class="content-page">
 			<div class="container">
 				<div class="bread-crumb bg-white border radius6">
-					<a href="#">Home</a> <a href="#">Bakery</a> <span class="color">Brithday</span>
+					<a href="javascript:void(0);">Home</a> <a href="javascript:void(0);">Bakery</a> <span class="color">Brithday</span>
 				</div>
 				<div class="main-content-page">
 					<div class="detail-product">
@@ -31,48 +27,48 @@
 												<ul class="list-none" style="margin: 0px; padding: 0px; position: relative; list-style: none; z-index: 1; height: 3040px; top: -320px;">
 													@if(isset($product->photos))
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#" class=""><img src="{{asset($product->photos)}}" alt=""></a>
+														<a href="javascript:void(0);" class=""><img src="{{asset($product->photos)}}" alt=""></a>
 													</li>
 													@endif
 													@if(isset($product->thumbnail_img))
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#"><img src="{{asset($product->thumbnail_img)}}" alt=""></a>
+														<a href="javascript:void(0);"><img src="{{asset($product->thumbnail_img)}}" alt=""></a>
 													</li>
 													@endif
 													@if(isset($product->featured_img))
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#"><img src="{{asset($product['featured_img'])}}" alt=""></a>
+														<a href="javascript:void(0);"><img src="{{asset($product['featured_img'])}}" alt=""></a>
 													</li>
 													@endif
 													@if(isset($product->flash_deal_img))
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#"><img src="{{asset($product->flash_deal_img)}}" alt=""></a>
+														<a href="javascript:void(0);"><img src="{{asset($product->flash_deal_img)}}" alt=""></a>
 													</li>
 													@endif
 													<!-- <li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#"><img src="{{asset('frontend/content/goodshop_bakery_19.jpg')}}" alt=""></a>
+														<a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_19.jpg')}}" alt=""></a>
 													</li>
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#"><img src="{{asset('frontend/content/goodshop_bakery_18.jpg')}}" alt=""></a>
+														<a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_18.jpg')}}" alt=""></a>
 													</li>
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#"><img src="{{asset('frontend/content/goodshop_bakery_17.jpg')}}" alt=""></a>
+														<a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_17.jpg')}}" alt=""></a>
 													</li>
 													<li style="overflow: hidden; float: none; width: 70px; height: 70px;">
-														<a href="#" class=""><img src="{{asset('frontend/content/goodshop_bakery_16.jpg')}}" alt=""></a>
+														<a href="javascript:void(0);" class=""><img src="{{asset('frontend/content/goodshop_bakery_16.jpg')}}" alt=""></a>
 													</li> -->
 											</ul>
 											</div>
 											<div class="control-button-gallery text-center">
-												<a href="#" class="shop-button prev"><i class="fa fa-angle-down"></i></a>
-												<a href="#" class="shop-button next"><i class="fa fa-angle-up"></i></a>
+												<a href="javascript:void(0);" class="shop-button prev"><i class="fa fa-angle-down"></i></a>
+												<a href="javascript:void(0);" class="shop-button next"><i class="fa fa-angle-up"></i></a>
 											</div>
 										</div>
 									</div>
 									<div class="social-detail social-footer text-center">
-										<a href="#" class="float-shadow"><img src="{{asset('frontend/content/icon-face.png')}}" alt=""></a>
-										<a href="#" class="float-shadow"><img src="{{asset('frontend/content/icon-twit.png')}}" alt=""></a>
-										<a href="#" class="float-shadow"><img src="{{asset('frontend/content/icon-gplus.png')}}" alt=""></a>
+										<a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-face.png')}}" alt=""></a>
+										<a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-twit.png')}}" alt=""></a>
+										<a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-gplus.png')}}" alt=""></a>
 									</div>
 								</div>
 								<!-- End Gallery -->
@@ -90,7 +86,7 @@
 											<span class="number-rate">@if(isset($product->rating)){{$product->rating}}@endif</span>
 										</li>
 										<li>
-											<a href="#" class="add-review">Add your review</a>
+											<a href="javascript:void(0);" class="add-review">Add your review</a>
 										</li>
 									</ul>
 									<div class="product-price">
@@ -103,28 +99,28 @@
 											<label>Color: </label><span>@if(isset($product->colors)){{$product->colors}}@endif</span>
 										</div>
 										<!-- <ul class="list-inline-block">
-											<li class="active"><a href="#"><img src="{{asset('frontend/content/goodshop_bakery_09.jpg')}}" alt=""><i class="fas fa-check-circle checkicon"></i></a></li>
-											<li><a href="#"><img src="{{asset('frontend/content/goodshop_bakery_08.jpg')}}" alt=""></a></li>
-											<li><a href="#"><img src="{{asset('frontend/content/goodshop_bakery_07.jpg')}}" alt=""></a></li>
+											<li class="active"><a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_09.jpg')}}" alt=""><i class="fas fa-check-circle checkicon"></i></a></li>
+											<li><a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_08.jpg')}}" alt=""></a></li>
+											<li><a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_07.jpg')}}" alt=""></a></li>
 										</ul> -->
 									</div>
 									<!-- <div class="detail-attr-size">
 										<label>Size: </label>
 										<ul class="list-inline-block">
-											<li><a href="#">s</a></li>
-											<li><a href="#">m</a></li>
-											<li><a href="#">l</a></li>
+											<li><a href="javascript:void(0);">s</a></li>
+											<li><a href="javascript:void(0);">m</a></li>
+											<li><a href="javascript:void(0);">l</a></li>
 										</ul>
 									</div> -->
 									<div class="detail-qty info-qty border radius6 append_hidden">
-										<a href="#" class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+										<a href="javascript:void(0);" class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
 										<span class="qty-val qunatity_value">1</span>
-										<a href="#" class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+										<a href="javascript:void(0);" class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 									</div>
-									<a class="addcart-link add-cart-detail shop-button title18 style2" href="#">Add to Cart</a>
+									<a class="addcart-link add-cart-detail shop-button title18 style2 cartitemadd" id="cartitemadd" href="javascript:void(0);">Add to Cart</a>
 									<div class="product-extra-link">
-										<a href="#" class="wishlist-link"><i class="far fa-heart" aria-hidden="true"></i><span>Wishlist</span></a>
-										<a href="#" class="compare-link"><i class="fab fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+										<a href="javascript:void(0);" id="wishlistadd" class="wishlist-link wishlistadd"><i class="far fa-heart" aria-hidden="true"></i><span>Wishlist</span></a>
+										<a href="javascript:void(0);" class="compare-link"><i class="fab fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 									</div>
 									<div class="detail-extra">
 										@if(isset($product->stocks[0]) && count($product->stocks) > 0)
@@ -182,7 +178,7 @@
 										<div class="col-md-4 col-sm-4 hidden-xs">
 											<div class="banner-adv fade-in-out">
 												@if(isset($product->photos))
-												<a href="#" class="adv-thumb-link"><img class="img-responsive" src="{{asset($product->photos)}}" alt=""></a>
+												<a href="javascript:void(0);" class="adv-thumb-link"><img class="img-responsive" src="{{asset($product->photos)}}" alt=""></a>
 												@endif
 											</div>
 										</div>
@@ -268,10 +264,10 @@
 									<ul class="list-none list-tags-review">
 										<li>
 											<div class="review-author">
-												<a href="#"><img src="{{asset('frontend/content/av1.jpg')}}" alt=""></a>
+												<a href="javascript:void(0);"><img src="{{asset('frontend/content/av1.jpg')}}" alt=""></a>
 											</div>
 											<div class="review-info">
-												<p class="review-header"><a href="#"><strong>7up-theme</strong></a> – March 30, 2017:</p>
+												<p class="review-header"><a href="javascript:void(0);"><strong>7up-theme</strong></a> – March 30, 2017:</p>
 												<div class="product-rate">
 													<div class="product-rating" style="width:100%"></div>
 												</div>
@@ -280,10 +276,10 @@
 										</li>
 										<li>
 											<div class="review-author">
-												<a href="#"><img src="{{asset('frontend/content/av2.jpg')}}" alt=""></a>
+												<a href="javascript:void(0);"><img src="{{asset('frontend/content/av2.jpg')}}" alt=""></a>
 											</div>
 											<div class="review-info">
-												<p class="review-header"><a href="#"><strong>7up-theme</strong></a> – March 30, 2017:</p>
+												<p class="review-header"><a href="javascript:void(0);"><strong>7up-theme</strong></a> – March 30, 2017:</p>
 												<div class="product-rate">
 													<div class="product-rating" style="width:100%"></div>
 												</div>
@@ -323,7 +319,7 @@
 						</div>
 					</div>
 					<!-- End Tab Detail -->
-					<div class="related-product">
+					<!-- <div class="related-product">
 						<h2 class="title30">LATEST products</h2>
 						<div class="related-slider">
 							<div class="wrap-item show-navi owl-carousel owl-theme" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[480,2],[768,3],[980,4]]" style="opacity: 1; display: block;">
@@ -345,9 +341,9 @@
 										</div>
 										<a href="http://demo.7uptheme.com/html/goodshop/product-grid.html" class="product-incat">Coockies <span>(13)</span></a>
 										<div class="product-extra-link">
-											<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-											<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-											<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+											<a href="javascript:void(0);" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+											<a href="javascript:void(0);" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
+											<a href="javascript:void(0);" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 										</div>
 									</div>
 								</div></div><div class="owl-item active" style="width: 300px;"><div class="item-product1 style-border">
@@ -368,9 +364,9 @@
 										</div>
 										<a href="http://demo.7uptheme.com/html/goodshop/product-grid.html" class="product-incat">Coockies <span>(13)</span></a>
 										<div class="product-extra-link">
-											<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-											<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-											<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+											<a href="javascript:void(0);" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+											<a href="javascript:void(0);" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
+											<a href="javascript:void(0);" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 										</div>
 									</div>
 								</div></div><div class="owl-item active" style="width: 300px;"><div class="item-product1 style-border">
@@ -390,9 +386,9 @@
 										</div>
 										<a href="http://demo.7uptheme.com/html/goodshop/product-grid.html" class="product-incat">Coockies <span>(13)</span></a>
 										<div class="product-extra-link">
-											<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-											<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-											<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+											<a href="javascript:void(0);" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+											<a href="javascript:void(0);" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
+											<a href="javascript:void(0);" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 										</div>
 									</div>
 								</div></div><div class="owl-item active" style="width: 300px;"><div class="item-product1 style-border">
@@ -413,9 +409,9 @@
 										</div>
 										<a href="http://demo.7uptheme.com/html/goodshop/product-grid.html" class="product-incat">Coockies <span>(13)</span></a>
 										<div class="product-extra-link">
-											<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-											<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-											<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+											<a href="javascript:void(0);" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+											<a href="javascript:void(0);" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
+											<a href="javascript:void(0);" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 										</div>
 									</div>
 								</div></div><div class="owl-item" style="width: 300px;"><div class="item-product1 style-border">
@@ -435,9 +431,9 @@
 										</div>
 										<a href="http://demo.7uptheme.com/html/goodshop/product-grid.html" class="product-incat">Coockies <span>(13)</span></a>
 										<div class="product-extra-link">
-											<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-											<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-											<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+											<a href="javascript:void(0);" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+											<a href="javascript:void(0);" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
+											<a href="javascript:void(0);" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 										</div>
 									</div>
 								</div></div><div class="owl-item" style="width: 300px;"><div class="item-product1 style-border">
@@ -458,18 +454,68 @@
 										</div>
 										<a href="http://demo.7uptheme.com/html/goodshop/product-grid.html" class="product-incat">Coockies <span>(13)</span></a>
 										<div class="product-extra-link">
-											<a href="#" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
-											<a href="#" class="addcart-link"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Add to cart</span></a>
-											<a href="#" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+											<a href="javascript:void(0);" class="wishlist-link wishlistadd"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+											<a href="javascript:void(0);" class="addcart-link"><i class="fa fa-shopping-basket cartitemadd" aria-hidden="true"></i><span>Add to cart</span></a>
+											<a href="javascript:void(0);" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
 										</div>
 									</div>
 								</div></div></div></div>
 							<div class="owl-controls clickable" style="display: block;"><div class="owl-buttons"><div class="owl-prev"><i class="fa fa-caret-left" aria-hidden="true"></i></div><div class="owl-next"><i class="fa fa-caret-right" aria-hidden="true"></i></div></div></div></div>
 						</div>
-					</div>
+					</div> -->
 					<!-- End Product Box -->
 				</div>
 			</div>
 		</div>
 	</div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+	
+$("body").on('click',"#wishlistadd",function(){	
+alert('hi');
+			var id = "{{$product->id}}";
+			 $.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.add_to_wishlist')}}",
+               data:{'id':id,'_token':"{{csrf_token()}}"},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+               			swal("success", data.msg, "success");			
+               		}
+               		if(data.status == 412){
+						swal(data.msg);
+               		}
+               }
+            });
+		});
+
+		$(document).on('click',"#cartitemadd",function(){
+			alert('hi');
+				var id = "{{$product->id}}";
+				var tax = "{{$product->tax}}";
+				var price = "{{$product->purchase_price}}";
+				var shipping_cost = "{{$product->shipping_cost}}";
+				var variation = "{{$product->variation}}";
+			 
+			 $.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.add_to_cart')}}",
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+               			swal("success", data.msg, "success");			
+               		}
+               		if(data.status == 412){
+						swal(data.msg);
+               		}
+               }
+            });						
+		});
+</script>
+@endpush

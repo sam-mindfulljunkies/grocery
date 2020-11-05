@@ -24,7 +24,7 @@ Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.ch
 
 Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
-Route::get('/users/login', 'HomeController@login')->name('user.login');
+// Route::get('/users/login', 'HomeController@login')->name('user.login');
 Route::get('/users/registration', 'HomeController@registration')->name('user.registration');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');
 Route::post('/users/login/cart', 'HomeController@cart_login')->name('cart.login.submit');
@@ -237,12 +237,20 @@ Route::get('/product/detail/{id}', 'FrontendController@product_details')->name('
 
 
 
+
 Route::post('/home/add_to_cart', 'FrontendController@add_cart')->name('userhome.add_to_cart');
 Route::get('/home/cart_detail', 'FrontendController@cart')->name('userhome.cart');
 Route::post('/wishlist','FrontendController@add_to_wishlist')->name('userhome.add_to_wishlist');
-Route::get('/home/product/checkout','FrontendController@checkout_product')->name('userhome.checkout_product');
-Route::get('/product/checkout',function(){
-	dd('hi');
-});
-// Route::group(['middleware' => ['auth']], function(){
-// });
+Route::post('/home/product/checkout','FrontendController@checkout_product')->name('userhome.checkout_product');
+Route::post('/update_cart','FrontendController@update_cart')->name('userhome.update_cart');
+Route::post('/remove_cart','FrontendController@remove_cart')->name('userhome.remove_cart');
+
+
+Route::get('/users/login','FrontendController@login')->name('userhome.login');
+
+Route::get('/logout','FrontendController@logout')->name('userhome.logout');
+
+
+
+Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
+// Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');

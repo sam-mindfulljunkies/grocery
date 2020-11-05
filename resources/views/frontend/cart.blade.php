@@ -27,9 +27,9 @@
 									$total = 0;
 									@endphp
 									@foreach($carts as $val)
-									<tr class="cart_item">
+									<tr class="cart_item" id="tr-{{$val->id}}">
 										<td class="product-remove">
-											<a class="remove" href=javascript:;><i class="fa fa-times"></i></a>
+											<a class="remove remove_cart" data-id="{{$val->id}}" href=javascript:;><i class="fa fa-times"></i></a>
 										</td>
 										<td class="product-thumbnail">
 											<a href=javascript:;><img  src="{{asset($val->product->photos)}}" alt=""/></a>					
@@ -38,17 +38,19 @@
 											@if(isset($val->product->name))<a href=javascript:;>{{$val->product->name}} @endif</a>					
 										</td>
 										<td class="product-price" data-title="Price">
-											<span class="amount">@if(isset($val->price))<a href=javascript:;>€{{$val->price}} @endif</span>					
+											@if(isset($val->price))€<span class="amount price_amt">{{$val->price}} </span>@endif					
 										</td>
 										<td class="product-quantity" data-title="Quantity">
 											<div class="detail-qty info-qty border radius6 text-center">
-												<a href=javascript:; class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-												@if(isset($val->quantity))<span class="qty-val">{{$val->quantity}}</span>@endif
-												<a href=javascript:; class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+												<a href=javascript:void(0); id="down_qty" data-id="{{$val->id}}" class="down_qty qty-{{$val->id}}"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+
+												@if(isset($val->quantity))
+												<span class="qty_val" data-id="{{$val->id}}"> {{$val->quantity}} </span>@endif
+												<a href=javascript:; id="up-qty"  class="up_qty" data-id="{{$val->id}}"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 											</div>		
 										</td>
 										<td class="product-subtotal" data-title="Total">
-											@if(isset($val->price))<span class="amount">€{{($val->price + $val->product_shipping_cost) * $val->quantity}} </span>@endif					
+											@if(isset($val->price))<span class="amount total_amt">€{{($val->price + $val->product_shipping_cost) * $val->quantity}} </span>@endif					
 										</td>
 											@php 
 											$total += ($val->price + $val->product_shipping_cost) * $val->quantity;
@@ -72,7 +74,7 @@
 										<td class="product-quantity" data-title="Quantity">
 											<div class="detail-qty info-qty border radius6 text-center">
 												<a href=javascript:; class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-												<span class="qty-val">2</span>
+												<span class="qty_val">2</span>
 												<a href=javascript:; class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 											</div>			
 										</td>
@@ -102,7 +104,7 @@
 									<tbody>
 										<tr class="cart-subtotal">
 											<th>Subtotal</th>
-											<td><strong class="amount">€{{$total}}</strong></td>
+											<td><strong class="amount grand-total">€{{$total}}</strong></td>
 										</tr>
 										<tr class="shipping">
 											<th>Shipping</th>
@@ -156,7 +158,69 @@
 </div>
 @endsection
 
-@push('script')
+@push('scripts')
+<script type="text/javascript">
+	$("body").on('click',".up_qty",function(){
+		var val = $(".qty_val").html();
+		var cart_id = $(this).data('id');
+		var price = $(".price_amt").html();
+		val =  parseInt(val)+1;
+		$(this).find(".qty_val").html(val);
+		$(this).find(".total_amt").html(parseInt(val) * parseInt(price));
+		$.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.update_cart')}}",
+               data:{'id':cart_id,'_token':"{{csrf_token()}}",'quantity':parseInt(val)},
+               dataType:'json',
+               success:function(data) {
+               }
+            });
+	})
 
+	$('body').on('click',".down_qty",function(){
+		var val = $(".qty_val").html();
+		var price = $(".price_amt").html();
+		var cart_id = $(this).data('id');
+		if(parseInt(val) < parseInt(1)){
+			val = 0;
+			$(".qty_val").html(val);
+			$(this).parent('tr').remove();
+			return false;
+		}
+		val =  parseInt(val) - 1;
+		$(this).find(".qty_val").html(val);
+		$(this).find(".total_amt").html(parseInt(val) * parseInt(price));
+		$.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.update_cart')}}",
+               data:{'id':cart_id,'_token':"{{csrf_token()}}",'quantity':val},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+				
+              	 }
+              	}
+            });
+	})
 
+	$('body').on('click',".remove_cart",function(){
+		var id = $(this).data('id');
+		var cart_id = $(this).data('id');
+		// $(this).find(".qty_val").html(val);
+		$.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.remove_cart')}}",
+               data:{'id':cart_id,'_token':"{{csrf_token()}}"},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+               			$('#tr-'+data.id).remove();
+               		}
+               	}
+            });
+	})
+</script>
 @endpush

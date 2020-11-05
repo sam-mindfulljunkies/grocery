@@ -50,7 +50,7 @@ class HomeController extends Controller
 
     public function user_login(Request $request)
     {
-        $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
+        $user = User::whereIn('user_type',['seller'])->where('email', $request->email)->first();
         if($user != null){
             if(Hash::check($request->password, $user->password)){
                 if($request->has('remember')){
