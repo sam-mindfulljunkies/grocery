@@ -253,4 +253,5 @@ Route::get('/logout','FrontendController@logout')->name('userhome.logout');
 
 
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
-// Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
+Route::post('/users/register','FrontendController@register')->name('userhome.register');
+Route::post('/users/wishlist','FrontendController@wishlist_get')->name('userhome.wishlist');

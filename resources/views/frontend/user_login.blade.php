@@ -1,102 +1,56 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<style>
-   body {
-    font-family: "Lato", sans-serif;
-}
-.main-head{
-    height: 150px;
-    background: #FFF;
-   
-}
-
-.sidenav {
-    height: 100%;
-    background-color: #000;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-.main {
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-}
-
-@media screen and (max-width: 450px) {
-    .login-form{
-        margin-top: 10%;
-    }
-
-    .register-form{
-        margin-top: 10%;
-    }
-}
-
-@media screen and (min-width: 768px){
-    .main{
-        margin-left: 40%; 
-    }
-
-    .sidenav{
-        width: 40%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    .login-form{
-        margin-top: 80%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
-}
-
-
-.login-main-text{
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
-}
-
-.login-main-text h2{
-    font-weight: 300;
-}
-
-.btn-black{
-    background-color: #000 !important;
-    color: #fff;
-}
-</style>
-<div class="sidenav">
-         <div class="login-main-text">
-            <h2>Application<br> Login Page</h2>
-            <p>Login or register from here to access.</p>
-         </div>
-      </div>
-      <div class="main">
-         <div class="col-md-6 col-sm-12">
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+<div class="main-container container" style="margin-top: 10%">
+  <div class="row">
+      <div class="col-md-5 col-sm-12">
             <div class="login-form">
+              <h3>Login Form</h3>
                <form method="POST" action="{{Route('userhome.login_check')}}">
                   @csrf
                   <div class="form-group">
                      <label>User Name</label>
-                     <input type="text" name="email" class="form-control" placeholder="User Name">
+                     <input type="text" name="email" class="form-control" placeholder="User Name"autocomplete="off">
                   </div>
                   <div class="form-group">
                      <label>Password</label>
-                     <input type="password" name="password" class="form-control" placeholder="Password">
+                     <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
                   </div>
-                  <button type="submit" class="btn btn-black">Login</button>
-                  <button type="submit" class="btn btn-secondary">Register</button>
+                  <button type="submit" name="form_1" value="submit" class="btn btn-black">Login</button>
                </form>
             </div>
          </div>
+            <div class="col-md-2"></div>
+           <div class="col-md-5 col-sm-12">
+            <div class="login-form">
+              <h3>Registration</h3>
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul type="square">
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+
+               <form method="POST" action="{{Route('userhome.register')}}">
+                  @csrf
+                  <div class="form-group">
+                     <label>Email</label>
+                     <input type="text" name="email" class="form-control" placeholder="User Name"autocomplete="off">
+                     @if($errors->has('email'))<span>{{'email'}}</span>@endif
+                  </div>
+                  <div class="form-group">
+                     <label>Password</label>
+                     <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
+                  </div>
+                  <div class="form-group">
+                     <label>user type</label>
+                     <input type="text" name="user_type" class="form-control" placeholder="user_type" value="customer" readonly="">
+                  </div>
+                  <button type="submit" name="form_2" value="submit" class="btn btn-black">Register</button>
+               </form>
+            </div>
+         </div>  
       </div>
+</div>

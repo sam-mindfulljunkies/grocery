@@ -474,7 +474,7 @@
 <script type="text/javascript">
 	
 $("body").on('click',"#wishlistadd",function(){	
-alert('hi');
+
 			var id = "{{$product->id}}";
 			 $.ajax({
                type:'POST',
@@ -494,7 +494,7 @@ alert('hi');
 		});
 
 		$(document).on('click',"#cartitemadd",function(){
-			alert('hi');
+			var qty = $(".qunatity_value").html();
 				var id = "{{$product->id}}";
 				var tax = "{{$product->tax}}";
 				var price = "{{$product->purchase_price}}";
@@ -505,7 +505,7 @@ alert('hi');
                type:'POST',
                method:'POST',
                url:"{{Route('userhome.add_to_cart')}}",
-               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1},
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':qty},
                dataType:'json',
                success:function(data) {
                		if(data.status == 200){

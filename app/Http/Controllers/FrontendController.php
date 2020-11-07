@@ -8,7 +8,8 @@ use App\Addons;
 use App\Brand;
 use App\Wishlist;
 use App\Models\Cart;
-use Auth;
+use App\User;
+use Auth,Hash,Validator,Redirect;
 
 class FrontendController extends Controller
 {
@@ -145,5 +146,35 @@ class FrontendController extends Controller
     function logout(){
         Auth::logout();
         return redirect()->route('userhome');            
+    }
+
+    function register(Request $request){
+        $validator =  Validator::make($request->all(),[
+            'email' => 'unique:users|required',
+            'password' => 'required'
+        ]);
+
+        if($validator->fails()){
+              return Redirect::route('userhome.login')
+           ->withErrors($validator)
+           ->withInput();
+        }else{       
+            $user = new User();
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->user_type = $request->user_type;
+            $user->save();
+
+            if(Auth::attempt(['email'=>$request->email,'password'=> $request->password])){
+                return redirect()->route('userhome');
+            }else{
+                return redirect()->back()->with('error','Something went wrong');
+            }
+        }
+    }
+
+    function wishlist_get(){
+        $wishlist =  Wishlist::all();
+        return view('frontend.wishlist',compact('wishlist'));
     }
 }
