@@ -95,7 +95,7 @@ class FrontendController extends Controller
         } else {
             $cart = new Cart();
             $cart->user_id = Auth::user()->id;
-            $cart->product_id = $request->id;
+            $cart->product_id = $request->product_id;
             $cart->variation = $request->variation;
             $cart->price = $request->price;
             $cart->tax = $request->tax;
@@ -174,7 +174,32 @@ class FrontendController extends Controller
     }
 
     function wishlist_get(){
-        $wishlist =  Wishlist::all();
+        $wishlist =  Wishlist::with('product')->paginate(1);
         return view('frontend.wishlist',compact('wishlist'));
+    }
+    function wishlist_remove(Request $request){
+        $wishlist =  Wishlist::find($request->id);
+        $wishlist->delete();
+        $wishlist_item_count = count(Wishlist::where('user_id',Auth::user()->id)->get());
+        return Response()->json(['status' => 200,'count'=>$wishlist_item_count]);
+    }
+
+    function wishlist_to_cart(Request $request){
+     $wishlist =  Wishlist::find($request->wishlist_id);
+     $wishlist->delete();
+        $cart_Exist = Cart::where('user_id',Auth::user()->id)->where('product_id',$request->id)->first();
+        $wishlist_item_count = count(Wishlist::where('user_id',Auth::user()->id)->get());
+        if(!$cart_Exist){
+            $cart = new Cart();
+            $cart->user_id = Auth::user()->id;
+            $cart->product_id = $request->id;
+            $cart->variation = $request->variation;
+            $cart->price = $request->price;
+            $cart->tax = $request->tax;
+            $cart->shipping_cost = $request->shipping_cost;
+            $cart->quantity = 1;
+            $cart->save();
+        }
+     return Response()->json(['status' => 200,'count'=>$wishlist_item_count]);   
     }
 }

@@ -128,7 +128,10 @@ $categories = $new->getCategory();
                </div>
                <div class="col-md-3 col-sm-4 col-xs-12">
                   <div class="mini-cart-box mini-cart2 pull-right">
-                     <a class="mini-cart-link" href="{{route('userhome.cart')}}"> <span class="mini-cart-icon"></span> 
+                     
+                     <a class="mini-wish" style="float: left;margin-right: 10%" href="{{route('userhome.wishlist')}}"> <span class="mini-cart-icon"></span> 
+                     </a>
+                     <a class="mini-cart-link" style="margin-left: : 10%" href="{{route('userhome.cart')}}"> <span class="mini-cart-icon"></span> 
                      </a>
                      <!-- <div class="mini-cart-content text-left">
                         <h2 class="title18 color">(2) ITEMS IN MY CART</h2>
@@ -140,7 +143,8 @@ $categories = $new->getCategory();
                               </div>
                               <div class="product-info">
                                  <h3 class="product-title"><a href=javascript:;>Fresh Green Round Aubergine</a></h3>
-                                 <!-- <div class="product-price"> <ins><span>€400.00</span></ins> <del><span>€520.00</span></del> </div> -->
+                      <div class="product-price"> <ins><span>€400.00</span></ins> <del><span>€520.00</span></del> 
+                      </div> -->
                               </div>
                            </div>
                            <div class="product-mini-cart table">
@@ -222,7 +226,6 @@ $categories = $new->getCategory();
                             @foreach($categories as $val)
                            <a href="{{Route('userhome.filterCat',['id'=>$val->id])}}">{{$val->name}}</a>
                            <ul class="sub-menu">
-
                            @foreach($val->subcategories as $val1)
                            <li><a href="{{Route('userhome.filterSubcat',['id'=>$val->id])}}">{{$val1->name}}</a></li>
                            @endforeach
@@ -275,5 +278,8 @@ $categories = $new->getCategory();
    content: "";
    clear: both;
    display: table;
+   }
+   .mini-cart-box{
+      max-width: 0 !important;
    }
 </style>

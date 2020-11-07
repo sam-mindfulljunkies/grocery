@@ -14,11 +14,13 @@
 							<table class="shop_table cart table">
 								<thead>
 									<tr>
-										<th class="product-remove">&nbsp;</th>
+										<th class="product-remove">Remove</th>
 										<th class="product-thumbnail">&nbsp;</th>
+										<th class="product-name">Product NAme</th>
 										<th class="product-name">Product</th>
-										<th class="product-quantity">Quantity</th>
-										<th class="product-subtotal">Total</th>
+										<th class="product-name">price</th>
+										<th class="product-name">Add to cart</th>
+
 									</tr>
 								</thead>
 								<tbody>
@@ -28,99 +30,52 @@
 									@foreach($wishlist as $val)
 									<tr class="cart_item" id="tr-{{$val->id}}">
 										<td class="product-remove">
-											<a class="remove remove_cart" data-id="{{$val->id}}" href=javascript:;><i class="fa fa-times"></i></a>
+											<a class="remove remove_wishlist" data-id="{{$val->id}}" href=javascript:;><i class="fa fa-times"></i></a>
 										</td>
+										
 										<td class="product-thumbnail">
-											<a href=javascript:;><img  src="{{asset($val->product->photos)}}" alt=""/></a>					
+											<a href=javascript:;>
+											@if(isset($val->product->name))
+												{{asset($val->product->name)}}
+												@endif
+											</a>					
+										</td>
+										
+										<td class="product-thumbnail">
+											<a href=javascript:;>
+											@if(isset($val->product->photos))
+												<img  src="{{asset($val->product->photos)}}" alt=""/>
+												@endif
+											</a>					
 										</td>
 										<td class="product-name" data-title="Product">
 											@if(isset($val->product->name))<a href=javascript:;>{{$val->product->name}} @endif</a>					
 										</td>
+										
 										<td class="product-price" data-title="Price">
-											@if(isset($val->price))€<span class="amount price_amt">{{$val->price}} </span>@endif					
+											@if(isset($val->price))€<span class="amount price_amt">{{$val->price}} </span>@endif	
+
+													<input type="hidden" name="price" id="purchase_price" @if(isset($val->product->purchase_price)) value="{{$val->product->purchase_price}}"@endif>
+
+													<input type="hidden" name="shipping_cost" id="shipping_cost" @if(isset($val->product->shipping_cost)) value="{{$val->product->shipping_cost}}"@endif>
+
+													<input type="hidden" name="varitation" id="purchase_price" @if(isset($val->product->varitation)) value="{{$val->product->varitation}}"@endif>
+
+													<input type="hidden" name="tax" id="tax" @if(isset($val->product->tax)) value="{{$val->product->purchase_price}}"@endif>
+
+													<input type="hidden" name="wish_list" id="wishlist_id" @if(isset($val->id)) value="{{$val->id}}"@endif>
 										</td>
+										<td class="product-price" data-title="Price">
+											<a href="javascript:;" data-id="{{$val->id}}" class="btn btn-primary wishlisttocart" name="move_cart">Add to cart</a>					
+										</td>
+
 									</tr>
 									@endforeach
-
-									<!-- <tr class="cart_item">
-										<td class="product-remove">
-											<a class="remove" href=javascript:;><i class="fa fa-times"></i></a>					
-										</td>
-										<td class="product-thumbnail">
-											<a href=javascript:;><img  src="content/goodshop_bakery_12.jpg" alt=""/></a>					
-										</td>
-										<td class="product-name" data-title="Product">
-											<a href=javascript:;>Theme Fusion item name</a>					
-										</td>
-										<td class="product-price" data-title="Price">
-											<span class="amount">$19.00</span>					
-										</td>
-										<td class="product-quantity" data-title="Quantity">
-											<div class="detail-qty info-qty border radius6 text-center">
-												<a href=javascript:; class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-												<span class="qty_val">2</span>
-												<a href=javascript:; class="qty-up"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-											</div>			
-										</td>
-										<td class="product-subtotal" data-title="Total">
-											<span class="amount">$38.00</span>					
-										</td>
-									</tr> -->
-									<tr>
-										<td class="actions" colspan="6">
-											<div class="coupon">
-												<label for="coupon_code">Coupon:</label> 
-												<input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code"> 
-												<input type="submit" value="Apply Coupon" name="apply_coupon" class="button bg-color">
-											</div>
-											<input type="submit" value="Update Cart" name="update_cart" class="button bg-color">			
-										</td>
-									</tr>
 								</tbody>
 							</table>
+							<center>{{$wishlist->links()}}</center>
 						</div>
 					</form>
-					<div class="cart-collaterals">
-						<div class="cart_totals ">
-							<h2>Cart Totals</h2>
-							<div class="table-responsive">
-								<table class="table">
-									<tbody>
-										<tr class="cart-subtotal">
-											<th>Subtotal</th>
-											<td><strong class="amount grand-total">€{{$total}}</strong></td>
-										</tr>
-										<tr class="shipping">
-											<th>Shipping</th>
-											<td>
-												<ul class="list-none" id="shipping_method">
-													<li>
-														<input type="radio" class="shipping_method" checked="checked" value="free_shipping" id="shipping_method_0_free_shipping" data-index="0" name="shipping_method[0]">
-														<label for="shipping_method_0_free_shipping">Free Shipping</label>
-													</li>
-													<li>
-														<input type="radio" class="shipping_method" value="local_delivery" id="shipping_method_0_local_delivery" data-index="0" name="shipping_method[0]">
-														<label for="shipping_method_0_local_delivery">Local Delivery (Free)</label>
-													</li>
-													<li>
-														<input type="radio" class="shipping_method" value="local_pickup" id="shipping_method_0_local_pickup" data-index="0" name="shipping_method[0]">
-														<label for="shipping_method_0_local_pickup">Local Pickup (Free)</label>
-													</li>
-												</ul>
-											</td>
-										</tr>
-										<tr class="order-total">
-											<th>Total</th>
-											<td><strong><span class="amount">$106.00</span></strong> </td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="wc-proceed-to-checkout">
-								<a class="checkout-button button alt wc-forward bg-color" href="{{Route('userhome.checkout_product')}}">Proceed to Checkout</a>
-							</div>
-						</div>
-					</div>
 				</div>	
 			</div>
 		</div>
@@ -144,67 +99,54 @@
 
 @push('scripts')
 <script type="text/javascript">
-	$("body").on('click',".up_qty",function(){
-		var val = $(".qty_val").html();
-		var cart_id = $(this).data('id');
-		var price = $(".price_amt").html();
-		val =  parseInt(val)+1;
-		$(this).find(".qty_val").html(val);
-		$(this).find(".total_amt").html(parseInt(val) * parseInt(price));
-		$.ajax({
-               type:'POST',
-               method:'POST',
-               url:"{{Route('userhome.update_cart')}}",
-               data:{'id':cart_id,'_token':"{{csrf_token()}}",'quantity':parseInt(val)},
-               dataType:'json',
-               success:function(data) {
-               }
-            });
-	})
-
-	$('body').on('click',".down_qty",function(){
-		var val = $(".qty_val").html();
-		var price = $(".price_amt").html();
-		var cart_id = $(this).data('id');
-		if(parseInt(val) < parseInt(1)){
-			val = 0;
-			$(".qty_val").html(val);
-			$(this).parent('tr').remove();
-			return false;
-		}
-		val =  parseInt(val) - 1;
-		$(this).find(".qty_val").html(val);
-		$(this).find(".total_amt").html(parseInt(val) * parseInt(price));
-		$.ajax({
-               type:'POST',
-               method:'POST',
-               url:"{{Route('userhome.update_cart')}}",
-               data:{'id':cart_id,'_token':"{{csrf_token()}}",'quantity':val},
-               dataType:'json',
-               success:function(data) {
-               		if(data.status == 200){
-				
-              	 }
-              	}
-            });
-	})
-
-	$('body').on('click',".remove_cart",function(){
+	$('body').on('click',".remove_wishlist",function(){
 		var id = $(this).data('id');
-		var cart_id = $(this).data('id');
+		var wishlist_id = $("#wishlist_id").val();
 		// $(this).find(".qty_val").html(val);
 		$.ajax({
                type:'POST',
                method:'POST',
-               url:"{{Route('userhome.remove_cart')}}",
-               data:{'id':cart_id,'_token':"{{csrf_token()}}"},
+               url:"{{Route('userhome.remove')}}",
+               data:{'id':wishlist_id,'_token':"{{csrf_token()}}"},
                dataType:'json',
                success:function(data) {
                		if(data.status == 200){
-               			$('#tr-'+data.id).remove();
+               			if(data.count >  5){
+               				$("tr-"+id).remove();	
+               			}else{
+               				location.reload('users/wishlist');
+               			}
                		}
                	}
             });
 	})
+
+
+	$(document).on('click',".wishlisttocart",function(){
+				var id = $(this).data('id');
+				var tax = $("#tax").val();
+				var price = $("#price").val();
+				var shipping_cost = $('#shipping_cost').val();
+				var variation = $('#variation').val();
+				var wishlist_id = $("#wishlist_id").val();
+			 $.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{Route('userhome.wishlisttocart')}}",
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1,'wishlist_id':wishlist_id},
+               dataType:'json',
+               success:function(data) {
+               		if(data.status == 200){
+							if(data.count > 1){
+               				$('#tr-'+id).remove();
+               				location.reload('/users/wishlist?page=1');
+               			}
+               		}
+               		if(data.status == 412){
+						swal(data.msg);
+               		}
+               }
+            });						
+		});
 </script>
 @endpush

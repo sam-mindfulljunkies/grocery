@@ -254,4 +254,7 @@ Route::get('/logout','FrontendController@logout')->name('userhome.logout');
 
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
 Route::post('/users/register','FrontendController@register')->name('userhome.register');
-Route::post('/users/wishlist','FrontendController@wishlist_get')->name('userhome.wishlist');
+Route::get('/users/wishlist','FrontendController@wishlist_get')->name('userhome.wishlist');
+Route::post('/users/wishlist_remove','FrontendController@wishlist_remove')->name('userhome.remove');
+Route::post('/wishlist/tocart/','FrontendController@wishlist_to_cart')->name('userhome.wishlisttocart');
+

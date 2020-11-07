@@ -32,7 +32,13 @@
 											<a class="remove remove_cart" data-id="{{$val->id}}" href=javascript:;><i class="fa fa-times"></i></a>
 										</td>
 										<td class="product-thumbnail">
-											<a href=javascript:;><img  src="{{asset($val->product->photos)}}" alt=""/></a>					
+											<a href=javascript:;>
+											@if(isset($val->product->photos))
+												<img  src="{{asset($val->product->photos)}}" alt=""/>
+												@else
+													No Image
+												@endif
+											</a>					
 										</td>
 										<td class="product-name" data-title="Product">
 											@if(isset($val->product->name))<a href=javascript:;>{{$val->product->name}} @endif</a>					

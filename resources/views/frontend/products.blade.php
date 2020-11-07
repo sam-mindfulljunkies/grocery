@@ -180,5 +180,7 @@ $categories = $new->getCategory();
                }
             });						
 		});
+
+		
 </script>
 @endpush
