@@ -59,11 +59,13 @@
 
 													<input type="hidden" name="shipping_cost" id="shipping_cost" @if(isset($val->product->shipping_cost)) value="{{$val->product->shipping_cost}}"@endif>
 
-													<input type="hidden" name="varitation" id="purchase_price" @if(isset($val->product->varitation)) value="{{$val->product->varitation}}"@endif>
+													<input type="hidden" name="varitation" id="varitation" @if(isset($val->product->varitation)) value="{{$val->product->varitation}}"@endif>
 
 													<input type="hidden" name="tax" id="tax" @if(isset($val->product->tax)) value="{{$val->product->purchase_price}}"@endif>
 
 													<input type="hidden" name="wish_list" id="wishlist_id" @if(isset($val->id)) value="{{$val->id}}"@endif>
+
+													<input type="hidden" name="wish_list" id="product_id" @if(isset($val->product->id)) value="{{$val->product->id}}"@endif>
 										</td>
 										<td class="product-price" data-title="Price">
 											<a href="javascript:;" data-id="{{$val->id}}" class="btn btn-primary wishlisttocart" name="move_cart">Add to cart</a>					
@@ -125,22 +127,26 @@
 	$(document).on('click',".wishlisttocart",function(){
 				var id = $(this).data('id');
 				var tax = $("#tax").val();
-				var price = $("#price").val();
+				var price = $("#purchase_price").val();
 				var shipping_cost = $('#shipping_cost').val();
 				var variation = $('#variation').val();
 				var wishlist_id = $("#wishlist_id").val();
+				var product_id = $("#product_id").val();
+
 			 $.ajax({
                type:'POST',
                method:'POST',
                url:"{{Route('userhome.wishlisttocart')}}",
-               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1,'wishlist_id':wishlist_id},
+               data:{'id':product_id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1,'wishlist_id':wishlist_id},
                dataType:'json',
                success:function(data) {
                		if(data.status == 200){
 							if(data.count > 1){
                				$('#tr-'+id).remove();
                				location.reload('/users/wishlist?page=1');
-               			}
+               				}else{
+               					$('#tr-'+id).remove();
+               				}
                		}
                		if(data.status == 412){
 						swal(data.msg);

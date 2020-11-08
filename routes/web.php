@@ -238,23 +238,29 @@ Route::get('/product/detail/{id}', 'FrontendController@product_details')->name('
 
 
 
-Route::post('/home/add_to_cart', 'FrontendController@add_cart')->name('userhome.add_to_cart');
-Route::get('/home/cart_detail', 'FrontendController@cart')->name('userhome.cart');
-Route::post('/wishlist','FrontendController@add_to_wishlist')->name('userhome.add_to_wishlist');
-Route::post('/home/product/checkout','FrontendController@checkout_product')->name('userhome.checkout_product');
-Route::post('/update_cart','FrontendController@update_cart')->name('userhome.update_cart');
-Route::post('/remove_cart','FrontendController@remove_cart')->name('userhome.remove_cart');
+
 
 
 Route::get('/users/login','FrontendController@login')->name('userhome.login');
 
+
+Route::group(['middleware' => ['customer']], function () {
 Route::get('/logout','FrontendController@logout')->name('userhome.logout');
 
+Route::post('/home/add_to_cart', 'FrontendController@add_cart')->name('userhome.add_to_cart');
+Route::post('/wishlist','FrontendController@add_to_wishlist')->name('userhome.add_to_wishlist');
+Route::get('/home/product/checkout','FrontendController@checkout_product')->name('userhome.checkout_product');
+Route::post('/update_cart','FrontendController@update_cart')->name('userhome.update_cart');
+Route::post('/remove_cart','FrontendController@remove_cart')->name('userhome.remove_cart');
 
+Route::get('/users/wishlist','FrontendController@wishlist_get')->name('userhome.wishlist');
+Route::get('/home/cart_detail', 'FrontendController@cart')->name('userhome.cart');
+Route::post('/users/wishlist_remove','FrontendController@wishlist_remove')->name('userhome.remove');
+Route::post('/wishlist/tocart/','FrontendController@wishlist_to_cart')->name('userhome.wishlisttocart');
+Route::get('/user/profile/','FrontendController@profile')->name('userhome.profile');
+Route::post('/user/place_order','FrontendController@place_order')->name('userhome.place_order');
+
+});
 
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
 Route::post('/users/register','FrontendController@register')->name('userhome.register');
-Route::get('/users/wishlist','FrontendController@wishlist_get')->name('userhome.wishlist');
-Route::post('/users/wishlist_remove','FrontendController@wishlist_remove')->name('userhome.remove');
-Route::post('/wishlist/tocart/','FrontendController@wishlist_to_cart')->name('userhome.wishlisttocart');
-

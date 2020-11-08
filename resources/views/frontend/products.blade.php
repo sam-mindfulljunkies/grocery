@@ -7,6 +7,7 @@ $categories = $new->getCategory();
 @endphp
 @extends('frontend.layouts.app')
 @section('content')
+
 <div id="content">
 
 		<div class="content-page">
@@ -61,15 +62,20 @@ $categories = $new->getCategory();
 								 </div>
 								</div>
 								<div class="grid-shop">
+										@if(Session::has('error'))
+										{{Session::get('error')}}
+										@endif
 									<div class="row">
-										@if(!empty($products))
+										@if(!isset($products))
 										<h3 style="margin-left:300px; ">No Products available</h3>
 										@endif
+													{{dd($products)}}
 										@foreach($products as $val)
 										<div class="col-md-4 col-sm-6 col-xs-6">
 											<div class="item-product1 style-border">
 												<div class="product-thumb">
 													<a href="{{Route('userhome.product_details',['id'=>$val->id])}}"><img alt="{{$val->name}}" src="{{asset($val['photos'])}}"></a>
+													}
 												</div>
 												<div class="product-info">
 													<h3 class="product-title"><a href="">{{$val->name}}</a></h3>

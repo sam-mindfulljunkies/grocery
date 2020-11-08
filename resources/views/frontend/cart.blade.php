@@ -133,7 +133,7 @@
 										</tr>
 										<tr class="order-total">
 											<th>Total</th>
-											<td><strong><span class="amount">$106.00</span></strong> </td>
+											<td><strong><span class="amount">€{{$total}}</span></strong> </td>
 										</tr>
 									</tbody>
 								</table>

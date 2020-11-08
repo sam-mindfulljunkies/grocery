@@ -1,5 +1,21 @@
+@php  
+
+use App\Http\Controllers\FrontendController;
+
+$new = new FrontendController();
+$country = $new->getCountry();
+@endphp
+
 @extends('frontend.layouts.app')
 @section('content')
+<style type="text/css">
+	ul li {
+		list-style-type: : none;
+	}
+	.parsley-required{
+		color:red;
+	}
+</style>
 <div class="wrap">
 	<div id="content">
 		<div class="content-page">
@@ -14,33 +30,36 @@
 							<div class="row">
 								<div class="col-md-6 col-sm-6 col-ms-12">
 									<div class="check-billing">
-										<form class="form-my-account">
+										<form class="form-my-account" method="POST" action="{{route('userhome.place_order')}}" id="orderform">
+											@csrf
 											<h2 class="title title18 rale-font font-bold text-uppercase">Billing Details</h2>
 											<p class="clearfix box-col2">
-												<input type="text" value="First Name *" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" />
-												<input type="text" value="last name *" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" />
-											</p>
-											<p><input type="text" value="Company Name" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" /></p>
-											<p class="clearfix box-col2">
-												<input type="text" value="Email *" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" />
-												<input type="text" value="phone *" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" />
+												<input data-parsley-required="" type="text" name="firstname" placeholder="firstname" value="" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required="" />
+												<input type="text"  name="lastname" placeholder="lastname" value="" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required=""/>
 											</p>
 											<p>
-												<select name="country" id="country">
-													<option value="">Country*</option>
-													<option value="">United State</option>
-													<option value="">England</option>
-													<option value="">Germany</option>
-													<option value="">France</option>
+											<p class="clearfix box-col2">
+												<input type="text" name="email" placeholder="Email" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required=""/>
+												<input type="text" name="contact" placeholder="phone Number" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required=""/>
+											</p>
+											<p>
+												@php
+												@endphp
+												<select name="country" id="country" required="">
+													@foreach($country as $val)
+													<option value="{{$val->code}}">{{$val->name}}</option>
+													@endforeach
 												</select>
 											</p>
-											<p><input type="text" value="Address *" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" /></p>
+											<p><input type="text" name="address" placeholder="address"  onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required=""/></p>
 											<p class="clearfix box-col2">
-												<input type="text" value="Postcode / Zip" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" />
-												<input type="text" value="Town / City *" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" />
+												<input type="text" name="postcode" placeholder="postcode" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required=""/>
+												<input type="text" name="city"  placeholder="town / city" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" required=""/>
+												<input type="hidden" name="total" id="total">
 											</p>
+											<input type="hidden" name="diff_address" id="diffappend" >
 											<p>
-												<input type="checkbox"  id="remember" /> <label for="remember">Create an account?</label>
+												<!-- <input type="checkbox"  id="remember" /> <label for="remember">Create an account?</label> -->
 											</p>
 										</form>
 									</div>
@@ -49,10 +68,10 @@
 									<div class="check-address">
 										<form class="form-my-account">
 											<p class="ship-address">
-												<input type="checkbox"  id="address" /> <label for="address">Ship to a different address?</label>
+												<input type="checkbox"  id="address" class="ship_to_diff_add" /> <label for="address">Ship to a different address?</label>
 											</p>
 											<p>
-												<textarea cols="30" rows="10" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''">Order Notes</textarea>
+												<textarea cols="30" name="diff_address" id="diff_address" rows="10" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''">Order Notes</textarea>
 											</p>
 										</form>
 									</div>		
@@ -69,27 +88,28 @@
 											</tr>
 										</thead>
 										<tbody>
+											@php
+											$total = 0;
+											//dd($cart);
+											@endphp
+											@foreach($cart as $val)
 											<tr class="cart_item">
 												<td class="product-name">
-													Theme Fusion item name <span class="product-quantity">× 1</span>
+													@if(isset($val->product->name)){{$val->product->name}}@endif <span class="product-quantity">{{$val->qunatity}}</span>
 												</td>
 												<td class="product-total">
-													<span class="amount">$68.00</span>						
+													<span class="amount">€{{($val->quantity * $val->price)}}</span>						
 												</td>
+												@php
+													$total += ($val->quantity * $val->price);
+												@endphp
 											</tr>
-											<tr class="cart_item">
-												<td class="product-name">
-													Theme Fusion item name <span class="product-quantity">× 2</span>
-												</td>
-												<td class="product-total">
-													<span class="amount">$38.00</span>
-												</td>
-											</tr>
+											@endforeach
 										</tbody>
 										<tfoot>
 											<tr class="cart-subtotal">
 												<th>Subtotal</th>
-												<td><strong class="amount">$106.00</strong></td>
+												<td><strong class="amount">€{{$total}}</strong></td>
 											</tr>
 											<tr class="shipping">
 												<th>Shipping</th>
@@ -112,7 +132,7 @@
 											</tr>
 											<tr class="order-total">
 												<th>Total</th>
-												<td><strong><span class="amount">$106.00</span></strong> </td>
+												<td><strong><span class="amount">€{{$total}}</span></strong> </td>
 											</tr>
 										</tfoot>
 									</table>
@@ -178,3 +198,31 @@
 	<!-- End Preload -->
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".ship_to_diff_add").on('click',function(){
+		var flag = $(this).val();
+		var total = "{{$total}}";
+		$("#total").val(total);
+		if(flag== 'on'){
+			$("#diff_address").on('keyup keydown focus',function(){
+				var address = $(this).val();
+				$("#diffappend").val(address);
+			})
+		}
+	})
+})
+
+$("#place_order").on('click',function(){
+	var total = "{{$total}}";
+	$("#total").val(total);
+	if($("form#orderform").parsley().validate()){
+		$("form#orderform").submit();
+	}
+})
+	
+</script>
+@endpush

@@ -55,6 +55,7 @@ $categories = $new->getCategory();
                            @if(!Auth::user())
                            <a href="{{route('userhome.login')}}" class="white" style="color: #f67500;"> Login or Register&nbsp;<i class="fa fa-user" aria-hidden="true"></i></a> 
                            @else
+                           <a href="{{Route('userhome.profile')}}" class="white" style="color: #f67500;">My Profile&nbsp;<i class="fa fa-profile" aria-hidden="true"></i></a>
                            <a href="{{Route('userhome.logout')}}" class="white" style="color: #f67500;">Logout&nbsp;<i class="fa fa-user" aria-hidden="true"></i></a>
                            @endif
                         </li>
