@@ -145,21 +145,24 @@ span.minus-class:after {
  </style>	
 
  <div class="container" style="margin-top: 6%">
+      
   <div class="wrapper clearfix">
      <div class="info clearfix">
        <div class="personal_img">
        	   <div class="img">
-              <img src="{{asset($user->avatar)}}" width="100%">
-              <author>{{$user->name}}</author>
+            @if(isset($user[0]->avatar))
+              <img src="{{asset($user[0]->avatar)}}" width="100%">
+              @endif
+              <author>{{$user[0]->name}}</author>
            </div>
        </div>
        <div class="personal_info">
        	   <div class="details">
                <h1>Personal Information</h1>
-               <p>{{$user->name}}</p>
-               <p>{{$user->address}}</p>
-				<p><a href="tel:{{$user->contact}}">{{$user->contact}}</a></p>
-				<p><a href="mailto:{{$user->email}}">{{$user->email}}</a></p>
+               <p>{{$user[0]->name}}</p>
+               <p>{{$user[0]->address}}</p>
+				<p><a href="tel:{{$user[0]->contact}}">{{$user[0]->contact}}</a></p>
+				<p><a href="mailto:{{$user[0]->email}}">{{$user[0]->email}}</a></p>
            </div>
            <div class="buttons">
              <a class="edit-btn" href="#" data-toggle="modal" data-target="#myModal">Edit</a>
@@ -173,12 +176,12 @@ span.minus-class:after {
        <h2>myorder</h2>
 
        <table class="table-responsive table">
-
-         @foreach($user as $val)
+         @foreach($user[0] as $val)
          <tr>
            <td width="100px">
-             @if(isset($val->avatar_original))
-             <img src="{{$val->avatar_original}}" width="100%">
+
+             @if(isset($val->avtar))
+             <img src="{{$val->avtar}}" width="100%">
              @endif
            </td>
            <td width="350px">

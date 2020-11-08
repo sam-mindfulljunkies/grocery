@@ -92,6 +92,7 @@ $country = $new->getCountry();
 											$total = 0;
 											//dd($cart);
 											@endphp
+											{{Session::put('product_id',$cart)}}
 											@foreach($cart as $val)
 											<tr class="cart_item">
 												<td class="product-name">

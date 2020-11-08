@@ -12,6 +12,8 @@ use App\User;
 use Auth, Hash, Validator, Redirect;
 use App\Country;
 use App\Order;
+use App\OrderDetail;
+use Session;
 class FrontendController extends Controller
 {
     public function index()
@@ -258,15 +260,23 @@ class FrontendController extends Controller
     }
     public function profile()
     {
-        $user = user::with('orders')->with('products')->where('users.id',Auth::user()->id)->get()->toArray();
-        echo "<pre>";
-        print_r($user);
-        exit;
+        $user_id = Auth::user()->id;
+        $user =  User::with('orders')->whereHas('orders', function($query){
+            $query->where('user_id',Auth::user()->id);
+        })->get();
+
+        foreach ($user as $key => $value) {
+            foreach($value['orders'] as $key1=>$value1){
+            }
+        }
         return view('frontend.userprofile', compact('user'));
     }
     function place_order(Request $request)
     {
         $request = (object)$request->all();
+
+        $cart = Session::get('product_id');
+
         $order = new Order();
         $order->user_id = Auth::user()->id;
         if (isset($request->diff_address))
@@ -287,8 +297,31 @@ class FrontendController extends Controller
         $order->delivery_viewed = '';
         $order->coupon_discount = '';
         $order->Save();
+        $order_id = $order->id;
+
+        foreach($cart as $key=> $val){
+            $products[$key] = Product::find($val->product_id)->first();
+            $products[$key]['quantity'] = $val['quantity'];
+        }
+        foreach ($products as $value) {
+            $order_details =  new OrderDetail();
+            $order_details->price = $value->purchase_price;
+            $order_details->variation = $value->variation;
+            $order_details->product_id = $value->id;
+            $order_details->seller_id = '';
+            $order_details->order_id = $order_id;
+            $order_details->tax = ($value->tax) ? ($value->tax):0 ;
+            $order_details->shipping_cost = $value->shipping_cost;
+            $order_details->quantity = $value->quantity;
+            $order_details->payment_status = 'paid';
+            $order_details->delivery_status = '';
+            $order_details->shipping_type = '';
+            $order_details->save();
+        }
+    
         $remove_Cart = Cart::where('user_id', Auth::user()->id)
             ->delete();
+            Session::forget('product_id');
         if ($remove_Cart)
         {
             return redirect()->route('userhome.profile')

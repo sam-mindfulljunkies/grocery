@@ -69,7 +69,6 @@ $categories = $new->getCategory();
 										@if(!isset($products))
 										<h3 style="margin-left:300px; ">No Products available</h3>
 										@endif
-													{{dd($products)}}
 										@foreach($products as $val)
 										<div class="col-md-4 col-sm-6 col-xs-6">
 											<div class="item-product1 style-border">
@@ -82,7 +81,7 @@ $categories = $new->getCategory();
 													<div class="product-price">
 														<ins><span>€{{$val->unit_price}}</span></ins>
 													</div>
-													<input type="hidden" id="product_id" name="product_id" @if(isset($product))value="{{$val->id}}"@endif>
+													<input type="hidden" id="product_id" name="product_id" @if(isset($val->id)) value="{{$val->id}}"@endif>
 
 													<input type="hidden" name="tax"  id="tax" @if(isset($val->tax))value="{{$val->tax}}" @endif>
 
@@ -169,12 +168,13 @@ $categories = $new->getCategory();
 				var price = $("#price").val();
 				var shipping_cost = $('#shipping_cost').val();
 				var variation = $('#variation').val();
+				var product_id = $("#product_id").val();
 			 
 			 $.ajax({
                type:'POST',
                method:'POST',
                url:"{{Route('userhome.add_to_cart')}}",
-               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1},
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1,'product_id':product_id },
                dataType:'json',
                success:function(data) {
                		if(data.status == 200){

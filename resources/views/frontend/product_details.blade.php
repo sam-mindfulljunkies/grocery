@@ -505,7 +505,7 @@ $("body").on('click',"#wishlistadd",function(){
                type:'POST',
                method:'POST',
                url:"{{Route('userhome.add_to_cart')}}",
-               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':qty},
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':qty,'product_id':id},
                dataType:'json',
                success:function(data) {
                		if(data.status == 200){
