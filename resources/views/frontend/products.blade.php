@@ -70,14 +70,13 @@ $categories = $new->getCategory();
 										<h3 style="margin-left:300px; ">No Products available</h3>
 										@endif
 										@foreach($products as $val)
-										<div class="col-md-4 col-sm-6 col-xs-6">
+										<div class="col-md-4 col-sm-6 col-xs-6 tr-{{$val->id}}">
 											<div class="item-product1 style-border">
 												<div class="product-thumb">
 													<a href="{{Route('userhome.product_details',['id'=>$val->id])}}"><img alt="{{$val->name}}" src="{{asset($val['photos'])}}"></a>
-													}
 												</div>
 												<div class="product-info">
-													<h3 class="product-title"><a href="">{{$val->name}}</a></h3>
+													<h3 class="product-title"><a href="javascript:;">{{$val->name}}</a></h3>
 													<div class="product-price">
 														<ins><span>€{{$val->unit_price}}</span></ins>
 													</div>
@@ -94,9 +93,9 @@ $categories = $new->getCategory();
 
 
 													<div class="product-extra-link">
-														<a href="javascript:;" class="wishlist-link wishlistadd" data-id="{{$val->id}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+														<a href="javascript:;" class="wishlist-link wishlistadd" data-id="{{$val->id}}"><i class="fa fa-heart" aria-hidden="true"></i><span>Wishlist</span></a>
 														<a href="javascript:;" class="addcart-link cartitemadd" data-id="{{$val->id}}"><i class="fa fa-shopping-basket" aria-hidden="true" ></i><span>Add to cart</span></a>
-														<a href="javascript:;" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+														<!-- <a href="javascript:;" class="compare-link"><i class="fa fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a> -->
 													</div>
 												</div>
 											</div>
@@ -168,13 +167,12 @@ $categories = $new->getCategory();
 				var price = $("#price").val();
 				var shipping_cost = $('#shipping_cost').val();
 				var variation = $('#variation').val();
-				var product_id = $("#product_id").val();
 			 
 			 $.ajax({
                type:'POST',
                method:'POST',
                url:"{{Route('userhome.add_to_cart')}}",
-               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1,'product_id':product_id },
+               data:{'id':id,'_token':"{{csrf_token()}}",'tax':tax,'price':price,'variation':variation,'shipping_cost':shipping_cost,'qunatity':1,'product_id':id },
                dataType:'json',
                success:function(data) {
                		if(data.status == 200){

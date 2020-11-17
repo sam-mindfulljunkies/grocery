@@ -126,23 +126,21 @@ class FrontendController extends Controller
     }
     public function update_cart(Request $request)
     {
-        $data = $request->all();
+        // dd($request->all());
+        // $data = $request->all();
         if ($request->quantity == 0)
         {
-            $cart = Cart::find($request->id);
-            $cart->delete();
+            $carts = Cart::find($request->id);
+            $carts->delete();
         }
         else
         {
-            $cart = Cart::find($request->id);
-            $cart->quantity = $request->quantity;
-            // $cart->price = ($cart->price * $request->quantity);
-            $cart->save();
-            $data['quantity'] = $request->quantity;
-            $data['total'] = ($cart->price * $request->quantity);
+            $carts = Cart::find($request->id);
+            $carts->quantity = $request->quantity;
+            $carts->save();
         }
-        return Response()
-            ->json(['status' => 200, 'data' => $data]);
+        $carts = Cart::with('product')->get();
+        return view('frontend.cartbox',compact('carts'))->render();
     }
     public function checkout_product()
     {
@@ -176,8 +174,8 @@ class FrontendController extends Controller
     {
         $cart = Cart::find($request->id);
         $cart->delete();
-        return Response()
-            ->json(['status' => 200, 'id' => $request->id]);
+       $carts = Cart::with('product')->get();
+        return view('frontend.cartbox',compact('carts'))->render();
     }
     function logout()
     {
