@@ -23,7 +23,6 @@
 	$("body").on('click',".up_qty",function(){
 		var cart_id = $(this).data('id');
 		var val = $("#tr-"+cart_id).find(".qty_val").html();
-		alert(val);
 		// alert(cart_id);
 		var price = $(".price_amt").html();
 		val =  parseInt(val)+1;
@@ -44,7 +43,6 @@
 		var cart_id = $(this).data('id');
 		var val = $("#tr-"+cart_id).find(".qty_val").html();
 		var price = $(".price_amt").html();
-		alert(val);
 		if(parseInt(val) < parseInt(1)){
 			val = 0;
 			$(".qty_val").html(val);

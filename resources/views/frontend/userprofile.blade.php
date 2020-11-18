@@ -143,13 +143,13 @@ span.minus-class:after {
     border-top: 0px solid #ddd !important;
 }
  </style>	
-
  <div class="container" style="margin-top: 6%">
       
   <div class="wrapper clearfix">
      <div class="info clearfix">
        <div class="personal_img">
        	   <div class="img">
+            
             @if(isset($user[0]->avatar))
               <img src="{{asset($user[0]->avatar)}}" width="100%">
               @endif
@@ -161,12 +161,12 @@ span.minus-class:after {
                <h1>Personal Information</h1>
                <p>{{$user[0]->name}}</p>
                <p>{{$user[0]->address}}</p>
-				<p><a href="tel:{{$user[0]->contact}}">{{$user[0]->contact}}</a></p>
+				<p><a href="tel:{{$user[0]->phone}}">{{$user[0]->phone}}</a></p>
 				<p><a href="mailto:{{$user[0]->email}}">{{$user[0]->email}}</a></p>
            </div>
-           <div class="buttons">
+           <!-- <div class="buttons">
              <a class="edit-btn" href="#" data-toggle="modal" data-target="#myModal">Edit</a>
-           </div>
+           </div> -->
        </div>
      </div>
 
@@ -174,9 +174,8 @@ span.minus-class:after {
 
      <div class="myorder clearfix">
        <h2>myorder</h2>
-
        <table class="table-responsive table">
-         @foreach($user[0] as $val)
+         @foreach($user as $val)
          <tr>
            <td width="100px">
 
@@ -185,26 +184,26 @@ span.minus-class:after {
              @endif
            </td>
            <td width="350px">
-             <label class="product-name">{{$val}}</label>
+             <label class="product-name">{{$val->product_name}}</label>
              <div class="varients">
-               <span>color: Blue</span>
-               <span>Seller: Agile</span>
+               <span><b>order id:</b> #{{$val->id}} </span>
              </div>
            </td>
+           
            <td width="300px" style="text-align: center;">
-             <span>RS 636</span>
+             <span><b>Total:</b> {{$val->grand_total}}</span>
            </td>
            <td>
-            <label class="delivery-time">Delivered on Sun, Nov 01</label>
+            <label class="delivery-time">Delivered on {{$val->date}}</label>
             <label class="delivery-message">Your item has been delivered</label>
-            <span class="review-rating"><i class="fa fa-star" aria-hidden="true"></i>Rate & Review Product</span>
+            <!-- <span class="review-rating"><i class="fa fa-star" aria-hidden="true"></i>Rate & Review Product</span> -->
            </td>
            <td width="100px" style="text-align: right;">
              <span class="plus-class"></span>
            </td>
             <th class="buttons-order">
-             <a class="btn">Track Order</a>
-             <a class="btn">Order Receipt</a>
+             <!-- <a class="btn">Track Order</a> -->
+             <a class="btn" href="{{route('userhome.invoice',['id'=> $val->id])}}" target="_blank">Order Receipt</a>
            </th>
          </tr>
          @endforeach

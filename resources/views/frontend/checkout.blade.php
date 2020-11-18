@@ -67,9 +67,6 @@ $country = $new->getCountry();
 								<div class="col-md-6 col-sm-6 col-ms-12">
 									<div class="check-address">
 										<form class="form-my-account">
-											<p class="ship-address">
-												<input type="checkbox"  id="address" class="ship_to_diff_add" /> <label for="address">Ship to a different address?</label>
-											</p>
 											<p>
 												<textarea cols="30" name="diff_address" id="diff_address" rows="10" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''">Order Notes</textarea>
 											</p>
@@ -208,14 +205,12 @@ $(document).ready(function(){
 		var flag = $(this).val();
 		var total = "{{$total}}";
 		$("#total").val(total);
-		if(flag== 'on'){
-			$("#diff_address").on('keyup keydown focus',function(){
-				var address = $(this).val();
-				$("#diffappend").val(address);
-			})
-		}
-	})
-})
+		$("#diff_address").on('keyup keydown focus',function(){
+			var address = $(this).val();
+			$("#diffappend").val(address);
+		});
+	});
+});
 
 $("#place_order").on('click',function(){
 	var total = "{{$total}}";

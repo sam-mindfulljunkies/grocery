@@ -259,7 +259,7 @@ Route::post('/users/wishlist_remove','FrontendController@wishlist_remove')->name
 Route::post('/wishlist/tocart/','FrontendController@wishlist_to_cart')->name('userhome.wishlisttocart');
 Route::get('/user/profile/','FrontendController@profile')->name('userhome.profile');
 Route::post('/user/place_order','FrontendController@place_order')->name('userhome.place_order');
-
+Route::get('/users/invoice/{id}','FrontendController@invoice')->name('userhome.invoice');
 });
 
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');

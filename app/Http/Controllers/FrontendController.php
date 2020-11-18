@@ -13,7 +13,8 @@ use Auth, Hash, Validator, Redirect;
 use App\Country;
 use App\Order;
 use App\OrderDetail;
-use Session;
+use Session,DB;
+
 class FrontendController extends Controller
 {
     public function index()
@@ -126,8 +127,6 @@ class FrontendController extends Controller
     }
     public function update_cart(Request $request)
     {
-        // dd($request->all());
-        // $data = $request->all();
         if ($request->quantity == 0)
         {
             $carts = Cart::find($request->id);
@@ -259,37 +258,34 @@ class FrontendController extends Controller
     public function profile()
     {
         $user_id = Auth::user()->id;
-        $user =  User::with('orders')->whereHas('orders', function($query){
+        // $user =  DB::table('users')->join('orders','orders.user_id','=','users.id')
+        //                            ->join('order_details','order_details.order_id','=','orders.id')
+        //                            ->join('products','products.id','=','order_details.product_id')->select('*','products.name as product_name')
+        //                            ->where('orders.user_id',Auth::user()->id)->groupBy('orders.id')
+        //                            ->get();
+        $user = Order::whereHas('orderDetails',function($query){
             $query->where('user_id',Auth::user()->id);
         })->get();
-
-        foreach ($user as $key => $value) {
-            foreach($value['orders'] as $key1=>$value1){
-            }
-        }
         return view('frontend.userprofile', compact('user'));
     }
     function place_order(Request $request)
     {
         $request = (object)$request->all();
-
         $cart = Session::get('product_id');
-
+        $grandtotal = 0;
+            // dd($cart);
+        foreach($cart as $key => $val){
+            $products[] = Product::find($val->product_id);
+            $products[$key]['quantity'] = $val['quantity'];
+            $grandtotal += $val->shipping_cost;
+        }
         $order = new Order();
         $order->user_id = Auth::user()->id;
-        if (isset($request->diff_address))
-        {
-
-            $order->shipping_address = $request->diff_address;
-        }
-        else
-        {
-            $order->shipping_address = $request->address;
-        }
+        $order->shipping_address = $request->address;
         $order->payment_type = '';
         $order->payment_status = '';
         $order->payment_details = '';
-        $order->grand_total = $request->total;
+        $order->grand_total = ($grandtotal+ $request->total);
         $order->date = Date(now());
         $order->viewed = '';
         $order->delivery_viewed = '';
@@ -297,11 +293,7 @@ class FrontendController extends Controller
         $order->Save();
         $order_id = $order->id;
 
-        foreach($cart as $key=> $val){
-            $products[$key] = Product::find($val->product_id)->first();
-            $products[$key]['quantity'] = $val['quantity'];
-        }
-        foreach ($products as $value) {
+        foreach ($products as $key => $value) {
             $order_details =  new OrderDetail();
             $order_details->price = $value->purchase_price;
             $order_details->variation = $value->variation;
@@ -337,6 +329,15 @@ class FrontendController extends Controller
     {
         $data = Country::all();
         return $data;
+    }
+    public function invoice($order_id){
+        $user = DB::table('users')->join('orders','orders.user_id','=','users.id')
+                                   ->join('order_details','order_details.order_id','=','orders.id')
+                                   ->join('products','products.id','=','order_details.product_id')->select('*','products.name as product_name','users.name as name')
+                                   ->where('orders.user_id',Auth::user()->id)->where('orders.id',$order_id)
+                                   ->get();
+        // dd($user);
+        return view('frontend.invoice',compact('user'));
     }
 }
 

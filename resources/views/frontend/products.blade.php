@@ -163,11 +163,10 @@ $categories = $new->getCategory();
 
 		$(document).on('click',".cartitemadd",function(){
 				var id = $(this).data('id');
-				var tax = $("#tax").val();
-				var price = $("#price").val();
-				var shipping_cost = $('#shipping_cost').val();
-				var variation = $('#variation').val();
-			 
+				var tax = $(".tr-"+id).find("#tax").val();
+				var price = $(".tr-"+id).find("#price").val();
+				var shipping_cost = $(".tr-"+id).find('#shipping_cost').val();
+				var variation = $(".tr-"+id).find('#variation').val();
 			 $.ajax({
                type:'POST',
                method:'POST',
