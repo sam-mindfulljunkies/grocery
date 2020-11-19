@@ -66,19 +66,19 @@ $categories = $new->getCategory();
 										{{Session::get('error')}}
 										@endif
 									<div class="row">
-										@if(!isset($products))
+										@if(count($products) < 1)
 										<h3 style="margin-left:300px; ">No Products available</h3>
 										@endif
 										@foreach($products as $val)
 										<div class="col-md-4 col-sm-6 col-xs-6 tr-{{$val->id}}">
 											<div class="item-product1 style-border">
 												<div class="product-thumb">
-													<a href="{{Route('userhome.product_details',['id'=>$val->id])}}"><img alt="{{$val->name}}" src="{{asset($val['photos'])}}"></a>
+													<a href="{{Route('userhome.product_details',['id'=>$val->id])}}"><img alt="{{$val->name}}" src="{{asset($val['thumbnail_img'])}}"></a>
 												</div>
 												<div class="product-info">
 													<h3 class="product-title"><a href="javascript:;">{{$val->name}}</a></h3>
 													<div class="product-price">
-														<ins><span>€{{$val->unit_price}}</span></ins>
+														<ins><span>€{{$val->purchase_price}}</span></ins>
 													</div>
 													<input type="hidden" id="product_id" name="product_id" @if(isset($val->id)) value="{{$val->id}}"@endif>
 
@@ -104,10 +104,8 @@ $categories = $new->getCategory();
 										
 									</div>
 								</div>
-								<div class="pagi-nav-bar text-center"><!-- 
-									<a href="javascript:;" class="shop-button style2 btn-small prev-page"><i class="fa fa-caret-left" aria-hidden="true"></i></a> -->
-									<!-- <a href="javascript:;" class=""> -->{{$products->links()}}<!-- </a> -->
-									<!-- <a href="javascript:;" class="shop-button style2 btn-small next-page"><i class="fa fa-caret-right" aria-hidden="true"></i></a> -->
+								<div class="pagi-nav-bar text-center"> 
+									 {{$products->links()}}
 								</div>
 							</div>
 						</div>

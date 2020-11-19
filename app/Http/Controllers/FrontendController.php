@@ -13,7 +13,7 @@ use Auth, Hash, Validator, Redirect;
 use App\Country;
 use App\Order;
 use App\OrderDetail;
-use Session,DB;
+use Session, DB;
 
 class FrontendController extends Controller
 {
@@ -40,6 +40,11 @@ class FrontendController extends Controller
     public function filterCat($id)
     {
         $products = Product::where('products.category_id', $id)->paginate(9);
+        return view('frontend.products', compact('products'));
+    }
+    public function filterbrand($id)
+    {
+        $products = Product::where('products.brand_id', $id)->paginate(9);
         return view('frontend.products', compact('products'));
     }
     public function getCategory()
@@ -139,16 +144,19 @@ class FrontendController extends Controller
             $carts->save();
         }
         $carts = Cart::with('product')->get();
-        return view('frontend.cartbox',compact('carts'))->render();
+        return view('frontend.cart', compact('carts'))
+            ->render();
     }
     public function checkout_product()
     {
         $cart = Cart::with('product')->where('carts.user_id', Auth::user()
             ->id)
             ->get();
-            if(count($cart)<1){
-                return redirect()->route('userhome.products')->with('error','Sorry No data in cart to checkout');
-            }
+        if (count($cart) < 1)
+        {
+            return redirect()->route('userhome.products')
+                ->with('error', 'Sorry No data in cart to checkout');
+        }
         return view('frontend.checkout', compact('cart'));
     }
     public function login()
@@ -173,8 +181,9 @@ class FrontendController extends Controller
     {
         $cart = Cart::find($request->id);
         $cart->delete();
-       $carts = Cart::with('product')->get();
-        return view('frontend.cartbox',compact('carts'))->render();
+        $carts = Cart::with('product')->get();
+        return view('frontend.cartbox', compact('carts'))
+            ->render();
     }
     function logout()
     {
@@ -261,11 +270,15 @@ class FrontendController extends Controller
         // $user =  DB::table('users')->join('orders','orders.user_id','=','users.id')
         //                            ->join('order_details','order_details.order_id','=','orders.id')
         //                            ->join('products','products.id','=','order_details.product_id')->select('*','products.name as product_name')
-        //                            ->where('orders.user_id',Auth::user()->id)->groupBy('orders.id')
+        //                            ->where('users.id',Auth::user()->id)->groupBy('orders.id')
         //                            ->get();
-        $user = Order::whereHas('orderDetails',function($query){
-            $query->where('user_id',Auth::user()->id);
+        $user = Order::whereHas('orderDetails', function ($query)
+        {
+            $query->where('user_id',$user_id);
         })->get();
+            if(count($user) < 1){
+                $user = User::find($user_id)->get();
+            }
         return view('frontend.userprofile', compact('user'));
     }
     function place_order(Request $request)
@@ -273,8 +286,9 @@ class FrontendController extends Controller
         $request = (object)$request->all();
         $cart = Session::get('product_id');
         $grandtotal = 0;
-            // dd($cart);
-        foreach($cart as $key => $val){
+        // dd($cart);
+        foreach ($cart as $key => $val)
+        {
             $products[] = Product::find($val->product_id);
             $products[$key]['quantity'] = $val['quantity'];
             $grandtotal += $val->shipping_cost;
@@ -285,7 +299,7 @@ class FrontendController extends Controller
         $order->payment_type = '';
         $order->payment_status = '';
         $order->payment_details = '';
-        $order->grand_total = ($grandtotal+ $request->total);
+        $order->grand_total = ($grandtotal + $request->total);
         $order->date = Date(now());
         $order->viewed = '';
         $order->delivery_viewed = '';
@@ -293,14 +307,15 @@ class FrontendController extends Controller
         $order->Save();
         $order_id = $order->id;
 
-        foreach ($products as $key => $value) {
-            $order_details =  new OrderDetail();
+        foreach ($products as $key => $value)
+        {
+            $order_details = new OrderDetail();
             $order_details->price = $value->purchase_price;
             $order_details->variation = $value->variation;
             $order_details->product_id = $value->id;
             $order_details->seller_id = '';
             $order_details->order_id = $order_id;
-            $order_details->tax = ($value->tax) ? ($value->tax):0 ;
+            $order_details->tax = ($value->tax) ? ($value->tax) : 0;
             $order_details->shipping_cost = $value->shipping_cost;
             $order_details->quantity = $value->quantity;
             $order_details->payment_status = 'paid';
@@ -308,10 +323,10 @@ class FrontendController extends Controller
             $order_details->shipping_type = '';
             $order_details->save();
         }
-    
+
         $remove_Cart = Cart::where('user_id', Auth::user()->id)
             ->delete();
-            Session::forget('product_id');
+        Session::forget('product_id');
         if ($remove_Cart)
         {
             return redirect()->route('userhome.profile')
@@ -330,14 +345,21 @@ class FrontendController extends Controller
         $data = Country::all();
         return $data;
     }
-    public function invoice($order_id){
-        $user = DB::table('users')->join('orders','orders.user_id','=','users.id')
-                                   ->join('order_details','order_details.order_id','=','orders.id')
-                                   ->join('products','products.id','=','order_details.product_id')->select('*','products.name as product_name','users.name as name')
-                                   ->where('orders.user_id',Auth::user()->id)->where('orders.id',$order_id)
-                                   ->get();
-        // dd($user);
-        return view('frontend.invoice',compact('user'));
+    public function invoice($order_id)
+    {
+        $user = DB::table('users')->join('orders', 'orders.user_id', '=', 'users.id')
+            ->join('order_details', 'order_details.order_id', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'order_details.product_id')
+            ->select('*', 'products.name as product_name', 'users.name as name')
+            ->where('orders.user_id', Auth::user()
+            ->id)
+            ->where('orders.id', $order_id)->get();
+        return view('frontend.invoice', compact('user'));
+    }
+    public function getbrands()
+    {
+        $brand = Brand::all();
+        return $brand;
     }
 }
 

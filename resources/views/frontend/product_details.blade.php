@@ -68,7 +68,7 @@
 									<div class="social-detail social-footer text-center">
 										<a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-face.png')}}" alt=""></a>
 										<a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-twit.png')}}" alt=""></a>
-										<a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-gplus.png')}}" alt=""></a>
+										<!-- <a href="javascript:void(0);" class="float-shadow"><img src="{{asset('frontend/content/icon-gplus.png')}}" alt=""></a> -->
 									</div>
 								</div>
 								<!-- End Gallery -->
@@ -120,7 +120,7 @@
 									<a class="addcart-link add-cart-detail shop-button title18 style2 cartitemadd" id="cartitemadd" href="javascript:void(0);">Add to Cart</a>
 									<div class="product-extra-link">
 										<a href="javascript:void(0);" id="wishlistadd" class="wishlist-link wishlistadd"><i class="far fa-heart" aria-hidden="true"></i><span>Wishlist</span></a>
-										<a href="javascript:void(0);" class="compare-link"><i class="fab fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a>
+										<!-- <a href="javascript:void(0);" class="compare-link"><i class="fab fa-stumbleupon" aria-hidden="true"></i><span>Compare</span></a> -->
 									</div>
 									<div class="detail-extra">
 										@if(isset($product->stocks[0]) && count($product->stocks) > 0)

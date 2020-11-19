@@ -1,8 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
  <style type="text/css">
- @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
-
  body{
  	font-family: 'Poppins', sans-serif;
  }
@@ -153,16 +151,16 @@ span.minus-class:after {
             @if(isset($user[0]->avatar))
               <img src="{{asset($user[0]->avatar)}}" width="100%">
               @endif
-              <author>{{$user[0]->name}}</author>
+              <author>@if(isset($user[0]->name)){{$user[0]->name}}@endif</author>
            </div>
        </div>
        <div class="personal_info">
        	   <div class="details">
                <h1>Personal Information</h1>
-               <p>{{$user[0]->name}}</p>
-               <p>{{$user[0]->address}}</p>
-				<p><a href="tel:{{$user[0]->phone}}">{{$user[0]->phone}}</a></p>
-				<p><a href="mailto:{{$user[0]->email}}">{{$user[0]->email}}</a></p>
+               <p>@if(isset($user[0]->name)){{$user[0]->name}}@endif</p>
+               <p>@if(isset($user[0]->address)){{$user[0]->address}} @endif</p>
+				<p><a href="tel:{{$user[0]->phone}}">@if(isset($user[0]->phone)){{$user[0]->phone}}@endif</a></p>
+				<p><a href="mailto:{{$user[0]->email}}">@if(isset($user[0]->email)){{$user[0]->email}}@endif</a></p>
            </div>
            <!-- <div class="buttons">
              <a class="edit-btn" href="#" data-toggle="modal" data-target="#myModal">Edit</a>
@@ -175,6 +173,10 @@ span.minus-class:after {
      <div class="myorder clearfix">
        <h2>myorder</h2>
        <table class="table-responsive table">
+       @if(!isset($user->product_name))
+        <h3>You Don't Have any Orders<br></h3><a href="{{route('userhome')}}"> Click here for Shop Now</a></h3>
+       @endif
+       @if(isset($user->product_name))
          @foreach($user as $val)
          <tr>
            <td width="100px">
@@ -207,6 +209,7 @@ span.minus-class:after {
            </th>
          </tr>
          @endforeach
+         @endif
        </table>
      </div>
 
