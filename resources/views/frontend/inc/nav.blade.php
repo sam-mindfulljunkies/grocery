@@ -23,18 +23,6 @@ $brand = $new->getbrands();
             <div class="translate" style="margin-top: 3%;float: right;">
               <a class="translate_no_drop" title="English Translation" href="https://www.certifiedchinesetranslation.com/" > <span class="image_english">English Translation</span></a>
               <a class="translate_no_drop" title="German Translation" href="https://www.certifiedchinesetranslation.com/German/" ><span class="image_german">German Translation</span></a>
-              <!-- <td width="35"><a class="translate_no_drop" title="Simplified Chinese Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_chinese">Chinese Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Traditional Chinese Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_chinese_tr">Chinese Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Spanish Translation" href="https://www.certifiedchinesetranslation.com/Spanish/" ><span class="image_spanish">Spanish Translation</span> </a></td> -->
-              <!--  <td width="35"><a class="translate_no_drop" title="Japanese Translation" href="https://www.certifiedchinesetranslation.com/Japanese/" ><span class="image_japanese">Japanese Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="French Translation" href="https://www.certifiedchinesetranslation.com/French/" ><span class="image_french">French Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Arabic Translation" href="https://www.certifiedchinesetranslation.com/Arabic/" ><span class="image_arabic">Arabic Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Greek Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_greek">Greek Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Italian Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_italian">Italian Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Korean Translation" href="https://www.certifiedchinesetranslation.com/Korean/" ><span class="image_korean">Korean Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Hindi Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_hindi">Hindi Translation</span> </a></td>
-                <td width="35"><a class="translate_no_drop" title="Russian Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_russian">Russian Translation</span> </a></td>
-                <td width="35"> <a class="translate_no_drop" title="Swedish Translation" href="https://www.certifiedchinesetranslation.com/" ><span class="image_swedish">Swedish Translation</span> </a> </td>
                 <td width="35"><a class="translate_drop" title="Translate" ><span class="image_more">translation</span></a></td> -->
             </div>
           </div>
@@ -111,14 +99,10 @@ $brand = $new->getbrands();
             <!-- <input type="text" name="" value="Search Your favourite Asian Products...." class="srch"> -->
             <div class="row">
               <div class="col-sm-12 col-xs-12 col-md-12">
-                <form class="example" action="/action_page.php">
-                  <input type="text" placeholder="Search your product..." name="search">
+                <form class="example" action="javascript:;">
+                  <input type="text" id="searchall_home" placeholder="Search your product..." name="search">
                   <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
-                <!-- <div class="input-group-append">
-                  <span class="input-group-text amber lighten-3" id="basic-text1"><i class="fa fa-search text-"
-                     aria-hidden="true"></i></span>
-                  </div> -->
               </div>
             </div>
           </div>

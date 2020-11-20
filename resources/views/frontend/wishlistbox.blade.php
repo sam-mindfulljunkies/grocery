@@ -9,14 +9,11 @@
 											<a class="remove remove_wishlist" data-id="{{$val->id}}" href=javascript:;><i class="fa fa-times"></i></a>
 										</td>
 										
-										<td class="product-thumbnail">
-											<a href=javascript:;>
-											@if(isset($val->product->name))
-												{{asset($val->product->name)}}
-												@endif
-											</a>					
-										</td>
 										
+										<td class="product-name" data-title="Product">
+											@if(isset($val->product->name))<a href=javascript:;>{{$val->product->name}} @endif</a>					
+										</td>
+
 										<td class="product-thumbnail">
 											<a href=javascript:;>
 											@if(isset($val->product->thumbnail_img))
@@ -24,12 +21,9 @@
 												@endif
 											</a>					
 										</td>
-										<td class="product-name" data-title="Product">
-											@if(isset($val->product->name))<a href=javascript:;>{{$val->product->name}} @endif</a>					
-										</td>
 										
 										<td class="product-price" data-title="Price">
-											@if(isset($val->price))€<span class="amount price_amt">{{$val->price}} </span>@endif	
+											@if(isset($val->product->purchase_price))€<span class="amount price_amt">{{$val->product->purchase_price}} </span>@endif	
 
 													<input type="hidden" name="price" id="purchase_price" @if(isset($val->product->purchase_price)) value="{{$val->product->purchase_price}}"@endif>
 

@@ -265,3 +265,6 @@ Route::get('/users/invoice/{id}','FrontendController@invoice')->name('userhome.i
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
 Route::post('/users/register','FrontendController@register')->name('userhome.register');
 Route::get('users/filter/brand/{id}','FrontendController@filterbrand')->name('userhome.filterBrand');
+Route::post('users/subscribe/','FrontendController@subscribe')->name('userhome.subscribe');
+Route::get('users/search/','FrontendController@Search_product')->name('userhome.search');
+

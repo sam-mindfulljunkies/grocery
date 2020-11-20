@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-<div class="wrap">
+<div class="wrap" id="appendedData">
 	@include('frontend.cartbox')
 	<!-- End Content -->
 	<a href=javascript:; class="scroll-top radius6"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
@@ -34,7 +34,7 @@
                url:"{{Route('userhome.update_cart')}}",
                data:{'id':cart_id,'_token':"{{csrf_token()}}",'quantity':parseInt(val)},
                success:function(data) {
-               	$(".wrap").html(data);
+               	$("#appendedData").html(data);
                }
             });
 	})
@@ -58,7 +58,7 @@
                url:"{{Route('userhome.update_cart')}}",
                data:{'id':cart_id,'_token':"{{csrf_token()}}",'quantity':val},
                success:function(data) {
-               	$(".wrap").html(data);
+               	$("#appendedData").html(data);
               	}
             });
 	})
@@ -71,7 +71,7 @@
                url:"{{Route('userhome.remove_cart')}}",
                data:{'id':cart_id,'_token':"{{csrf_token()}}"},
                success:function(data) {
-               		$(".wrap").html(data);
+               		$("#appendedData").html(data);
                	}
             });
 	})

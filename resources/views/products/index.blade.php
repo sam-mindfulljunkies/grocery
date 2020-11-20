@@ -79,7 +79,7 @@
                     <tr>
                         <td>{{ ($key+1) + ($products->currentPage() - 1)*$products->perPage() }}</td>
                         <td>
-                            <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
+                            <a href="Javascript:;" class="media-block">
                                 <div class="media-left">
                                     <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
                                 </div>

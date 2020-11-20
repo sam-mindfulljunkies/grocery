@@ -10,8 +10,9 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <form class="newsletter-form">
-                                <input class="radius6 bg-white" type="text" />
+                            <form class="newsletter-form" method="post" action="{{route('userhome.subscribe')}}">
+                            @csrf
+                                <input class="radius6 bg-white" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
                                 <input class="shop-button" type="submit" value="Subscribe" /> </form>
                         </div>
                     </div>

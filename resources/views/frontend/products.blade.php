@@ -4,6 +4,7 @@ use App\Http\Controllers\FrontendController;
 
 $new = new FrontendController();
 $categories = $new->getCategory();
+$brands =  $new->getBrands();
 @endphp
 @extends('frontend.layouts.app')
 @section('content')
@@ -49,6 +50,17 @@ $categories = $new->getCategory();
 									@endforeach
 								</ul>
 							</div>
+							<div class="wrap-cat-icon box-border-top bg-white drop-shadow hidden-xs hidden-sm">
+								<h2 class="title18 title-box4 title-cat-icon">Brands</h2>
+								<ul class="list-cat-icon">
+									@foreach($brands as $val)
+									<li class="">
+										<a href="{{Route('userhome.filterBrand',['id'=>$val->id])}}"><span>{{$val->name}}</span></a>
+									</li>
+									@endforeach
+								</ul>
+							</div>
+							
 							<!-- End Wrap Icon -->
 						
 							

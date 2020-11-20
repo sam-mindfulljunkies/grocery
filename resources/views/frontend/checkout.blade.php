@@ -87,7 +87,7 @@ $country = $new->getCountry();
 										<tbody>
 											@php
 											$total = 0;
-											//dd($cart);
+											$shipping_total = 0;
 											@endphp
 											{{Session::put('product_id',$cart)}}
 											@foreach($cart as $val)
@@ -100,6 +100,7 @@ $country = $new->getCountry();
 												</td>
 												@php
 													$total += ($val->quantity * $val->price);
+													$shipping_total += ($val->product->tax + $val->product->shipping_cost);
 												@endphp
 											</tr>
 											@endforeach
@@ -110,27 +111,12 @@ $country = $new->getCountry();
 												<td><strong class="amount">€{{$total}}</strong></td>
 											</tr>
 											<tr class="shipping">
-												<th>Shipping</th>
-												<td>
-													<ul class="list-none" id="shipping_method">
-														<li>
-															<input type="radio" class="shipping_method" checked="checked" value="free_shipping" id="shipping_method_0_free_shipping" data-index="0" name="shipping_method[0]">
-															<label for="shipping_method_0_free_shipping">Free Shipping</label>
-														</li>
-														<li>
-															<input type="radio" class="shipping_method" value="local_delivery" id="shipping_method_0_local_delivery" data-index="0" name="shipping_method[0]">
-															<label for="shipping_method_0_local_delivery">Local Delivery (Free)</label>
-														</li>
-														<li>
-															<input type="radio" class="shipping_method" value="local_pickup" id="shipping_method_0_local_pickup" data-index="0" name="shipping_method[0]">
-															<label for="shipping_method_0_local_pickup">Local Pickup (Free)</label>
-														</li>
-													</ul>
-												</td>
+												<th>Shipping cost incl. tax</th>
+												<td><strong><span class="amount">€{{$shipping_total}}</span></strong> </td>
 											</tr>
 											<tr class="order-total">
 												<th>Total</th>
-												<td><strong><span class="amount">€{{$total}}</span></strong> </td>
+												<td><strong><span class="amount">€{{$total+$shipping_total}}</span></strong> </td>
 											</tr>
 										</tfoot>
 									</table>

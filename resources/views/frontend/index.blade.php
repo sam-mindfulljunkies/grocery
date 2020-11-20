@@ -2,7 +2,8 @@
 <div id="content">
 	<div class="container">
 		<div class="banner-slider banner-slider3">
-			<div class="wrap-item" data-pagination="true" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1]]"> @foreach($banner as $val)
+			<div class="wrap-item" data-pagination="true" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1]]"> 
+			@foreach($banner1 as $val)
 				<div class="item-slider item-slider3">
 					<div class="banner-thumb">
 						<a href="javascript:;"><img src="{{asset($val['photo'])}}" alt="" /></a>
@@ -36,7 +37,7 @@
 									<div class="item-product text-center">
 										<div class="product-thumb"> <img alt="{{$val->name}}" src="{{asset($val->thumbnail_img)}}"> </div>
 										<div class="product-info">
-											<h3 class="product-title"><a href="">{{$val->name}}</a></h3>
+											<h3 class="product-title"><a href="{{route('userhome.product_details',['id' => $val->id])}}">{{$val->name}}</a></h3>
 											<div class="product-price"> <ins><span>€{{$val->purchase_price}}</span></ins> </div>
 											<div class="product-extra-link style2"> 
                                  <a href="javascript:;" class="addcart-link cartitemadd-grid1" data-id="{{$val->id}}">Add to cart</a></div>
@@ -76,7 +77,7 @@
 										<div class="item-product text-center">
 											<div class="product-thumb"> <img alt="{{$vals->name}}" src="{{asset($vals->thumbnail_img)}}"> </div>
 											<div class="product-info">
-												<h3 class="product-title"><a href="">{{$vals->name}}</a></h3>
+												<h3 class="product-title"><a href="{{route('userhome.product_details',['id'=> $vals->id])}}">{{$vals->name}}</a></h3>
 												<div class="product-price"> <ins><span>€{{$vals->purchase_price}}</span></ins> </div>
 												<div class="product-extra-link style2"> <a href="javascript:;" data-id='{{$val->id}}' class="addcart-link cartitemadd-grid2">Add to cart</a> </div>
 												<input type="hidden" value="{{$vals->purchase_price}}" name="price" id="price1">
@@ -93,24 +94,27 @@
 			</div>
 			<br> @include('frontend/inc/gellery')
 			<div class="container" style="padding-top: 2%;">
+			@foreach($banner3 as $val1)
 				<div class="col-md-6 col-sm-12 pull-left">
 					<div class="bottom-banner-img1">
-						<a href="javascript:;"> <img src="{{asset('frontend/images/banners-1.jpg')}}" alt=" banner"> </a>
+						<a href="javascript:;"> <img src="{{asset($val1->banner)}}" alt=" banner" height="243" width="525"> </a>
 					</div>
 				</div>
-				<div class="col-md-6 col-sm-12 pull-right">
+				@endforeach
+				<!-- <div class="col-md-6 col-sm-12 pull-right">
 					<div class="bottom-banner-img1">
 						<a href="javascript:;"> <img src="{{asset('frontend/images/banners-2.jpg')}}" alt=" banner"> </a>
-					</div>
-				</div>
+					</div> -->
+				<!-- </div> -->
 			</div>
 			<div class="container" style="margin-top: 3%;"></div>
 			<div class="featured-brand bg-white drop-shadow">
 				<div class="intro-brand white bg-color text-center"> <strong class="title18">FEATURED BRANDS</strong> <span>Shop over 2,500 healthy brands!</span> </div>
 				<div class="brand-slider4">
-					<div class="wrap-item show-navi" data-pagination="false" data-navigation="true" data-itemscustom="[[0,2],[600,3],[980,4],[1200,5]]"> @foreach($brand as $val)
+					<div class="wrap-item show-navi" data-pagination="false" data-navigation="true" data-itemscustom="[[0,2],[600,3],[980,4],[1200,5]]">
+					 @foreach($brand as $val)
 						<div class="item-brand">
-							<a href="javascript:;"><img src="{{asset($val['logo'])}}" alt="" /></a>
+							<a href="{{route('userhome.filterBrand',['id'=>$val->id])}}"><img src="{{asset($val['logo'])}}" alt="" /></a>
 						</div> @endforeach </div>
 				</div>
 			</div>
@@ -143,6 +147,37 @@ $(".cartitemadd-grid1").on('click',function() {
 	var price = $(".grid1-" + id).find("#price").val();
 	var shipping_cost = $(".grid1-" + id).find('#shipping_cost').val();
 	var variation = $(".grid1-" + id).find('#variation').val();
+	$.ajax({
+		type: 'POST',
+		method: 'POST',
+		url: "{{Route('userhome.add_to_cart')}}",
+		data: {
+			'id': id,
+			'_token': "{{csrf_token()}}",
+			'tax': tax,
+			'price': price,
+			'variation': variation,
+			'shipping_cost': shipping_cost,
+			'qunatity': 1,
+			'product_id': id
+		},
+		dataType: 'json',
+		success: function(data) {
+			if(data.status == 200) {
+				swal("success", data.msg, "success");
+			}
+			if(data.status == 412) {
+				swal(data.msg);
+			}
+		}
+	});
+});
+$(".cartitemadd-grid2").on('click',function() {
+	var id = $(this).data('id');
+	var tax = $(".grid2-" + id).find("#tax1").val();
+	var price = $(".grid2-" + id).find("#price1").val();
+	var shipping_cost = $(".grid2-" + id).find('#shipping_cost1').val();
+	var variation = $(".grid2-" + id).find('#variation1').val();
 	$.ajax({
 		type: 'POST',
 		method: 'POST',

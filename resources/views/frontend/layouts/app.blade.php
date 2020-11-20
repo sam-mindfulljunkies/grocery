@@ -43,7 +43,7 @@ $categories = $new->getCategory();
       <script type="text/javascript" src="{{asset('frontend/js/libs/jquery-3.2.1.min.js')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/js/libs/bootstrap.min.js')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/js/libs/jquery.fancybox.js')}}"></script>
-      <script type="text/javascript" src="{{asset('frontend/js/libs/jquery-ui.min.js')}}"></script>
+      <!-- <script type="text/javascript" src="{{asset('frontend/js/libs/jquery-ui.min.js')}}"></script> -->
       <script type="text/javascript" src="{{asset('frontend/js/libs/owl.carousel.min.js')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/js/libs/jquery.jcarousellite.min.js')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/js/libs/timecircles.js')}}"></script>
@@ -55,13 +55,16 @@ $categories = $new->getCategory();
       <script type="text/javascript" src="https://www.certifiedchinesetranslation.com/translate.js"></script>
       <script type="text/javascript" src="{{asset('frontend/content/jquery-3.2.1.min.js.download')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/content/bootstrap.min.js.download')}}"></script>
-      <!-- <script type="text/javascript" src="content/jquery-ui.min.js.download"></script> -->
+      <script type="text/javascript" src="content/jquery-ui.min.js"></script>
       <script type="text/javascript" src="{{asset('frontend/content/jquery.jcarousellite.min.js.download')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/content/jquery.elevatezoom.js.download')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/content/theme.js.download')}}"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
          <!-- End Translation Button -->
-   </body>
+         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script> -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script> 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script> -->
+
 </html>
 <style type="text/css">
    #content-desktop {display: block;}
@@ -104,6 +107,14 @@ $categories = $new->getCategory();
       $("a.current-page").removeClass('active');
 
     })
+</script>
+<script type="text/javascript">
+    $('#searchall_home').autocomplete({
+    serviceUrl: "{{route('userhome.search')}}",
+    onSelect: function (suggestion) {
+        alert(suggestion);
+    }
+});
 </script>
 @stack('scripts')
 

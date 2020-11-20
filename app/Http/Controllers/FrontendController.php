@@ -14,6 +14,7 @@ use App\Country;
 use App\Order;
 use App\OrderDetail;
 use Session, DB;
+use App\Models\Subscriber;
 
 class FrontendController extends Controller
 {
@@ -21,10 +22,12 @@ class FrontendController extends Controller
     {
         $product = Product::with('category')->with('subcategory')
             ->get();
-        $banner = Banner::all();
+        $banner1 = Banner::where('published',1)->where('position',1)->get();
+        $banner2 = Banner::where('published',1)->where('position',2)->get();
+        $banner3 = Category::where('featured',1)->limit(2)->get();
         $addons = Addons::all();
         $brand = Brand::all();
-        return view('frontend.index', compact('product', 'banner', 'addons', 'brand'));
+        return view('frontend.index', compact('product', 'banner1', 'banner2','banner3' ,'brand'));
     }
     public function getProducts()
     {
@@ -144,8 +147,7 @@ class FrontendController extends Controller
             $carts->save();
         }
         $carts = Cart::with('product')->get();
-        return view('frontend.cart', compact('carts'))
-            ->render();
+        return view('frontend.cartbox', compact('carts'))->render();
     }
     public function checkout_product()
     {
@@ -266,19 +268,15 @@ class FrontendController extends Controller
     }
     public function profile()
     {
-        $user_id = Auth::user()->id;
-        // $user =  DB::table('users')->join('orders','orders.user_id','=','users.id')
-        //                            ->join('order_details','order_details.order_id','=','orders.id')
-        //                            ->join('products','products.id','=','order_details.product_id')->select('*','products.name as product_name')
-        //                            ->where('users.id',Auth::user()->id)->groupBy('orders.id')
-        //                            ->get();
-        $user = Order::whereHas('orderDetails', function ($query)
-        {
-            $query->where('user_id',$user_id);
-        })->get();
-            if(count($user) < 1){
-                $user = User::find($user_id)->get();
+        $user = DB::table('users')
+        ->leftjoin('orders', 'users.id','=','orders.user_id')->select('*','orders.id as order_id','users.id as id')
+        ->where('orders.user_id',Auth::user()->id)
+          ->get();
+         
+            if(count($user) == 0){
+                $user = User::find(Auth::user()->id)->get();
             }
+            // dd($user);
         return view('frontend.userprofile', compact('user'));
     }
     function place_order(Request $request)
@@ -347,9 +345,9 @@ class FrontendController extends Controller
     }
     public function invoice($order_id)
     {
-        $user = DB::table('users')->join('orders', 'orders.user_id', '=', 'users.id')
-            ->join('order_details', 'order_details.order_id', '=', 'orders.id')
-            ->join('products', 'products.id', '=', 'order_details.product_id')
+        $user = DB::table('users')->leftjoin('orders', 'orders.user_id', '=', 'users.id')
+            ->leftjoin('order_details', 'order_details.order_id', '=', 'orders.id')
+            ->leftjoin('products', 'products.id', '=', 'order_details.product_id')
             ->select('*', 'products.name as product_name', 'users.name as name')
             ->where('orders.user_id', Auth::user()
             ->id)
@@ -360,6 +358,26 @@ class FrontendController extends Controller
     {
         $brand = Brand::all();
         return $brand;
+    }
+    public function subscribe(Request $request){
+        
+        $subscribes =  Subscriber::where('email',$request->email)->first();
+        if(!$subscribes){
+            $subscribe = new Subscriber();
+            $subscribe->email = $request->email;
+            $subscribe->save();
+        }
+        return redirect()->back();
+    }
+    public function Search_product(Request $request){
+        if(!empty($request->get('query'))){
+            $search = $request->get('query');
+         }
+        if(!empty($string)){
+            $products = Product::wherelike('name',$search)->get();
+            dd($products);
+            return response()->json($products);
+        }
     }
 }
 

@@ -15,9 +15,8 @@
 								<thead>
 									<tr>
 										<th class="product-remove">Remove</th>
-										<th class="product-thumbnail">&nbsp;</th>
-										<th class="product-name">Product NAme</th>
 										<th class="product-name">Product</th>
+										<th class="product-thumbnail">Image</th>
 										<th class="product-name">price</th>
 										<th class="product-name">Add to cart</th>
 

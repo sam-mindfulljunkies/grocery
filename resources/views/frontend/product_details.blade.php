@@ -96,7 +96,9 @@
 									</div>
 									<div class="title-tab-gal-detail">
 										<div class="color-gal-tab">
-											<label>Color: </label><span>@if(isset($product->colors)){{$product->colors}}@endif</span>
+											<label>Color: </label><span>@if(isset($product->colors))
+											
+											@endif</span>
 										</div>
 										<!-- <ul class="list-inline-block">
 											<li class="active"><a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_09.jpg')}}" alt=""><i class="fas fa-check-circle checkicon"></i></a></li>
@@ -104,14 +106,14 @@
 											<li><a href="javascript:void(0);"><img src="{{asset('frontend/content/goodshop_bakery_07.jpg')}}" alt=""></a></li>
 										</ul> -->
 									</div>
-									<!-- <div class="detail-attr-size">
+									<div class="detail-attr-size">
 										<label>Size: </label>
 										<ul class="list-inline-block">
 											<li><a href="javascript:void(0);">s</a></li>
 											<li><a href="javascript:void(0);">m</a></li>
 											<li><a href="javascript:void(0);">l</a></li>
 										</ul>
-									</div> -->
+									</div>
 									<div class="detail-qty info-qty border radius6 append_hidden">
 										<a href="javascript:void(0);" class="qty-down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
 										<span class="qty-val qunatity_value">1</span>

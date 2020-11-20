@@ -83,10 +83,10 @@
 </style>
 <h2 style="text-align:center;">Gallery/Advertising</h2>
 <div class="container">
-   @foreach($addons as $key => $val)
+   @foreach($banner2 as $key => $val)
    <div class="mySlides">
-      <div class="numbertext">  {{$key+1}} / {{count($addons)}}</div>
-      <img src="{{asset($val['image'])}}" style="width:100%">
+      <div class="numbertext">  {{$key+1}} / {{count($banner2)}}</div>
+      <img src="{{asset($val['photo'])}}" style="width:100%">
    </div>
    @endforeach
    <a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -95,9 +95,9 @@
       <p id="caption"></p>
       </div> -->
    <div class="row">
-      @foreach($addons as $key => $val)
+      @foreach($banner2 as $key => $val)
       <div class="column">
-         <img class="demo cursor" src="{{$val['image']}}" style="width:100%" onclick="currentSlide($key+1)" alt="The Woods">
+         <img class="demo cursor" src="{{$val['photo']}}" style="width:100%" onclick="currentSlide($key+1)" alt="The Woods">
       </div>
       @endforeach
    </div>

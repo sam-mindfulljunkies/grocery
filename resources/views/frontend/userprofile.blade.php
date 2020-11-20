@@ -173,10 +173,10 @@ span.minus-class:after {
      <div class="myorder clearfix">
        <h2>myorder</h2>
        <table class="table-responsive table">
-       @if(!isset($user->product_name))
+       @if(!isset($user[0]->order_id))
         <h3>You Don't Have any Orders<br></h3><a href="{{route('userhome')}}"> Click here for Shop Now</a></h3>
        @endif
-       @if(isset($user->product_name))
+       @if(isset($user[0]->order_id))
          @foreach($user as $val)
          <tr>
            <td width="100px">
@@ -186,7 +186,7 @@ span.minus-class:after {
              @endif
            </td>
            <td width="350px">
-             <label class="product-name">{{$val->product_name}}</label>
+             <label class="product-name">Bill to : {{$val->name}}</label>
              <div class="varients">
                <span><b>order id:</b> #{{$val->id}} </span>
              </div>
@@ -205,7 +205,7 @@ span.minus-class:after {
            </td>
             <th class="buttons-order">
              <!-- <a class="btn">Track Order</a> -->
-             <a class="btn" href="{{route('userhome.invoice',['id'=> $val->id])}}" target="_blank">Order Receipt</a>
+             <a class="btn" href="{{route('userhome.invoice',['id'=> $val->order_id])}}" target="_blank">Order Receipt</a>
            </th>
          </tr>
          @endforeach
