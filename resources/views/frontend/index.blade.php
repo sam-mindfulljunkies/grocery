@@ -32,10 +32,15 @@
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
 						<div class="item active">
-							<div class="row" id="content-desktop"> @foreach($product as $key=> $val)
+							<div class="row" id="content-desktop"> 
+							@foreach($product as $key=> $val)
 								<div class="col-sm-3 col-xs-3 grid1-{{$val->id}}">
 									<div class="item-product text-center">
-										<div class="product-thumb"> <img alt="{{$val->name}}" src="{{asset($val->thumbnail_img)}}"> </div>
+										<div class="product-thumb">
+										 	<a href="{{route('userhome.product_details',['id' => $val->id])}}">
+											 <img alt="{{$val->name}}" src="{{asset($val->thumbnail_img)}}">
+											 </a> 
+										 </div>
 										<div class="product-info">
 											<h3 class="product-title"><a href="{{route('userhome.product_details',['id' => $val->id])}}">{{$val->name}}</a></h3>
 											<div class="product-price"> <ins><span>€{{$val->purchase_price}}</span></ins> </div>
@@ -75,7 +80,11 @@
 								<div class="row " id="content-desktop"> @foreach($product as $key=> $vals)
 									<div class="col-sm-3 col-xs-3 grid2-{{$val->id}}">
 										<div class="item-product text-center">
-											<div class="product-thumb"> <img alt="{{$vals->name}}" src="{{asset($vals->thumbnail_img)}}"> </div>
+											<div class="product-thumb"> 
+											<a href="{{route('userhome.product_details',['id' => $val->id])}}">
+											<img alt="{{$vals->name}}" src="{{asset($vals->thumbnail_img)}}">
+											</a>
+											 </div>
 											<div class="product-info">
 												<h3 class="product-title"><a href="{{route('userhome.product_details',['id'=> $vals->id])}}">{{$vals->name}}</a></h3>
 												<div class="product-price"> <ins><span>€{{$vals->purchase_price}}</span></ins> </div>
