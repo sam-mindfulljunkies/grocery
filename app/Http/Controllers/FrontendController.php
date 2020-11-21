@@ -15,6 +15,8 @@ use App\Order;
 use App\OrderDetail;
 use Session, DB;
 use App\Models\Subscriber;
+use App\Models\ProductStock;
+use App\Models\Review;
 
 class FrontendController extends Controller
 {
@@ -73,10 +75,12 @@ class FrontendController extends Controller
     public function product_details($id)
     {
         $product = Product::with('stocks')->where('products.id', $id)->first();
+        $product_review = Review::where('product_id',$id)->get();
         // echo "<pre>";
         // print_r($product->first());
         // exit;
-        return view('frontend.product_details', compact('product'));
+        $product_review = DB::table('reviews')->leftjoin('users','users.id','reviews.user_id')->select('*','reviews.id as id,','users.id as user_id')->get();
+        return view('frontend.product_details', compact('product','product_review'));
     }
     public function add_to_cart()
     {
@@ -127,7 +131,11 @@ class FrontendController extends Controller
             $cart->price = $request->price;
             $cart->tax = $request->tax;
             $cart->shipping_cost = $request->shipping_cost;
-            $cart->quantity = 1;
+            if(isset($request->qunatity)){
+                $cart->quantity = $request->qunatity;
+            }else{
+                $cart->quantity = 1;
+            }
             $cart->save();
             return Response()
                 ->json(['status' => 200, 'msg' => 'Successfully added']);
@@ -284,12 +292,12 @@ class FrontendController extends Controller
         $request = (object)$request->all();
         $cart = Session::get('product_id');
         $grandtotal = 0;
-        // dd($cart);
+    
         foreach ($cart as $key => $val)
         {
             $products[] = Product::find($val->product_id);
             $products[$key]['quantity'] = $val['quantity'];
-            $grandtotal += $val->shipping_cost;
+            $products[$key]['purchase_price'] = $val->price;
         }
         $order = new Order();
         $order->user_id = Auth::user()->id;
@@ -297,7 +305,7 @@ class FrontendController extends Controller
         $order->payment_type = '';
         $order->payment_status = '';
         $order->payment_details = '';
-        $order->grand_total = ($grandtotal + $request->total);
+        $order->grand_total = $request->total;
         $order->date = Date(now());
         $order->viewed = '';
         $order->delivery_viewed = '';
@@ -348,7 +356,7 @@ class FrontendController extends Controller
         $user = DB::table('users')->leftjoin('orders', 'orders.user_id', '=', 'users.id')
             ->leftjoin('order_details', 'order_details.order_id', '=', 'orders.id')
             ->leftjoin('products', 'products.id', '=', 'order_details.product_id')
-            ->select('*', 'products.name as product_name', 'users.name as name')
+            ->select('*', 'products.name as product_name', 'users.name as name','order_details.price as purchase_price')
             ->where('orders.user_id', Auth::user()
             ->id)
             ->where('orders.id', $order_id)->get();
@@ -370,14 +378,35 @@ class FrontendController extends Controller
         return redirect()->back();
     }
     public function Search_product(Request $request){
-        if(!empty($request->get('query'))){
-            $search = $request->get('query');
+        if(!empty($request->get('term'))){
+            $search = $request->get('term');
          }
-        if(!empty($string)){
-            $products = Product::wherelike('name',$search)->get();
-            dd($products);
-            return response()->json($products);
+        if(!empty($search)){
+         $products = Product::where('name','like','%'.$search.'%')->get();
         }
+        if(!isset($products)){
+            $products = array();
+        }
+        return Response()->json($products);
+    }
+
+    function size_change(Request $request){
+        $id = $request->id;
+        $size = $request->size;
+        $products = ProductStock::where('product_id',$id)->where('variant','like','%'.$size.'%')->first();
+        $product = Product::with('stocks')->where('id',$id)->first();
+        $product->purchase_price = $products->price; 
+        $product_review = DB::table('reviews')->leftjoin('users','users.id','reviews.user_id')->select('*','reviews.id as id,','users.id as user_id')->get();
+        return view('frontend.productbox', compact('product','product_review'))->render();
+    }
+    function review_form(Request $request){
+        $review =  new Review();
+        $review->product_id = $request->product_id;
+        $review->user_id = Auth::user()->id;
+        $review->rating = 5;
+        $review->comment = $request->messasge; 
+        $review->save();
+        return redirect()->back();
     }
 }
 

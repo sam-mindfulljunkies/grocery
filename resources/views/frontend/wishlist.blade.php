@@ -5,7 +5,7 @@
 		<div class="content-page">
 			<div class="container">
 				<div class="bread-crumb bg-white border radius6">
-					<a href=javascript:;>Home</a> <span class="color">Wislist</span>
+					<a href="{{route('userhome')}}">Home</a> <span class="color">Wislist</span>
 				</div>
 				<div class="content-cart-checkout woocommerce">
 					<h2 class="title30 font-bold text-uppercase">wishlist</h2>

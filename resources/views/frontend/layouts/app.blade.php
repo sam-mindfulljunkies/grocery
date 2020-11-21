@@ -60,10 +60,11 @@ $categories = $new->getCategory();
       <script type="text/javascript" src="{{asset('frontend/content/jquery.elevatezoom.js.download')}}"></script>
       <script type="text/javascript" src="{{asset('frontend/content/theme.js.download')}}"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-         <!-- End Translation Button -->
-         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script> -->
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script> 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script> -->
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"/>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" /> -->
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
 </html>
 <style type="text/css">
@@ -80,6 +81,16 @@ $categories = $new->getCategory();
    .main-nav > ul > li.menu-item-has-children > a::after{
       display: none;
    }
+   ul.typeahed.dropdown-menu{
+    top: 46px !important;
+    left: 14px !important;
+    display: block !important;
+    z-index: 99999 !important;
+    width: 356px !important;
+}
+.dropdown-menu>li>a{
+    height:1000px;
+}
 </style>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -109,12 +120,18 @@ $categories = $new->getCategory();
     })
 </script>
 <script type="text/javascript">
-    $('#searchall_home').autocomplete({
-    serviceUrl: "{{route('userhome.search')}}",
-    onSelect: function (suggestion) {
-        alert(suggestion);
-    }
-});
+//  var route = "{{ url('autocomplete') }}";
+     $('#searchall_home').typeahead({
+        source: function (term, process) {
+        $.get("{{route('userhome.search')}}", { term: term }, function (data) {
+                return process(data);
+            });
+        },
+        afterSelect: function (data) {
+            console.log(data);
+                window.location.replace("/product/detail/"+data.id);
+            }
+    });
 </script>
 @stack('scripts')
 

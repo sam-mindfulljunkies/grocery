@@ -116,7 +116,10 @@ $country = $new->getCountry();
 											</tr>
 											<tr class="order-total">
 												<th>Total</th>
-												<td><strong><span class="amount">€{{$total+$shipping_total}}</span></strong> </td>
+												@php
+												$grand_Total = $total+$shipping_total;
+												@endphp
+												<td><strong><span class="amount">€{{$grand_Total}}</span></strong> </td>
 											</tr>
 										</tfoot>
 									</table>
@@ -183,13 +186,13 @@ $country = $new->getCountry();
 </div>
 @endsection
 
-@push('scripts')
+@push('scripts')amount
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".ship_to_diff_add").on('click',function(){
 		var flag = $(this).val();
-		var total = "{{$total}}";
+		var total = "{{$grand_Total}}";
 		$("#total").val(total);
 		$("#diff_address").on('keyup keydown focus',function(){
 			var address = $(this).val();
@@ -199,7 +202,7 @@ $(document).ready(function(){
 });
 
 $("#place_order").on('click',function(){
-	var total = "{{$total}}";
+	var total = "{{$grand_Total}}";
 	$("#total").val(total);
 	if($("form#orderform").parsley().validate()){
 		$("form#orderform").submit();

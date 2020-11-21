@@ -120,7 +120,7 @@ background:#eee;
 													<td class="text-center">{{$val->tax ? $val->tax : 0 }}</td>
 													<td class="text-right">{{$val->shipping_cost}}</td>
 													<td class="text-right">{{$val->quantity}}</td>
-													<td class="text-right">{{(($val->tax + $val->purchase_price)*$val->quantity) + $val->shipping_cost }}</td>
+													<td class="text-right">{{(($val->purchase_price)*$val->quantity) + $val->shipping_cost+$val->tax}}</td>
 												</tr>
                                                 @endforeach
 												<tr>

@@ -2,7 +2,7 @@
 		<div class="content-page">
 			<div class="container">
 				<div class="bread-crumb bg-white border radius6">
-					<a href=javascript:;>Home</a> <span class="color">Cart</span>
+					<a href="{{route('userhome')}}">Home</a> <span class="color">Cart</span>
 				</div>
 				<div class="content-cart-checkout woocommerce">
 					<h2 class="title30 font-bold text-uppercase">Cart</h2>
@@ -54,7 +54,7 @@
 											</div>		
 										</td>
 										<td class="product-subtotal" data-title="Total">
-											@if(isset($val->price))<span class="amount total_amt">€{{($val->price + $val->product_shipping_cost) * $val->quantity}} </span>@endif					
+											@if(isset($val->price))<span class="amount total_amt">€{{($val->price) * $val->quantity}} </span>@endif					
 										</td>
 											@php 
 											$total += ($val->price) * $val->quantity;

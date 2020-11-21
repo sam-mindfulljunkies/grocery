@@ -14,7 +14,7 @@ $brands =  $new->getBrands();
 		<div class="content-page">
 			<div class="container">
                <div class="bread-crumb bg-white border radius6">
-					<a href="javascript:;">Home</a> <a href="javascript:;">Indian</a> <span class="color"><!-- Festival Specialities --></span>
+			   <a href="{{route('userhome')}}">Home</a> <a href="{{route('userhome.products')}}">Products</a></span>
 				</div>
      			<div class="main-content-page">
 					<div class="row">

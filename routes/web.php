@@ -235,12 +235,6 @@ Route::get('/home/contact', 'FrontendController@contact')->name('userhome.contac
 Route::get('/home/login_signup', 'FrontendController@contact')->name('userhome.login');
 Route::get('/product/detail/{id}', 'FrontendController@product_details')->name('userhome.product_details');
 
-
-
-
-
-
-
 Route::get('/users/login','FrontendController@login')->name('userhome.login');
 
 
@@ -260,6 +254,7 @@ Route::post('/wishlist/tocart/','FrontendController@wishlist_to_cart')->name('us
 Route::get('/user/profile/','FrontendController@profile')->name('userhome.profile');
 Route::post('/user/place_order','FrontendController@place_order')->name('userhome.place_order');
 Route::get('/users/invoice/{id}','FrontendController@invoice')->name('userhome.invoice');
+Route::post('users/product_review/','FrontendController@review_form')->name('userhome.review_form');
 });
 
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');
@@ -267,4 +262,5 @@ Route::post('/users/register','FrontendController@register')->name('userhome.reg
 Route::get('users/filter/brand/{id}','FrontendController@filterbrand')->name('userhome.filterBrand');
 Route::post('users/subscribe/','FrontendController@subscribe')->name('userhome.subscribe');
 Route::get('users/search/','FrontendController@Search_product')->name('userhome.search');
+Route::post('users/size_change/','FrontendController@size_change')->name('size_change');
 
