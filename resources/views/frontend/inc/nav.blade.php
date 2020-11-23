@@ -23,7 +23,7 @@ $brand = $new->getbrands();
             <div class="translate" style="margin-top: 3%;float: right;">
               <a class="translate_no_drop" title="English Translation" href="https://www.certifiedchinesetranslation.com/" > <span class="image_english">English Translation</span></a>
               <a class="translate_no_drop" title="German Translation" href="https://www.certifiedchinesetranslation.com/German/" ><span class="image_german">German Translation</span></a>
-                <td width="35"><a class="translate_drop" title="Translate" ><span class="image_more">translation</span></a></td> -->
+                <!-- <td width="35"><a class="translate_drop" title="Translate" ><span class="image_more">translation</span></a></td> --> 
             </div>
           </div>
           <!-- End Button -->
@@ -204,10 +204,10 @@ $brand = $new->getbrands();
               @foreach($categories as $val)
               <a href="{{Route('userhome.filterCat',['id'=>$val->id])}}">{{$val->name}}</a>
               <ul class="sub-menu">
-                @foreach($val->subcategories as $val1)
+              @foreach($val->subcategories as $val1)
                 <li><a href="{{Route('userhome.filterSubcat',['id'=>$val->id])}}">{{$val1->name}}</a></li>
                 @endforeach
-              </ul>
+              </ul>              
               @endforeach
             </li>
           </ul>

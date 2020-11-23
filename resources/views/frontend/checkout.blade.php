@@ -5,7 +5,6 @@ use App\Http\Controllers\FrontendController;
 $new = new FrontendController();
 $country = $new->getCountry();
 @endphp
-
 @extends('frontend.layouts.app')
 @section('content')
 <style type="text/css">
@@ -98,10 +97,14 @@ $country = $new->getCountry();
 												<td class="product-total">
 													<span class="amount">€{{($val->quantity * $val->price)}}</span>						
 												</td>
-												@php
-													$total += ($val->quantity * $val->price);
-													$shipping_total += ($val->product->tax + $val->product->shipping_cost);
-												@endphp
+												@php 
+											$total += ($val->price) * $val->quantity;
+											if(isset($val->product->shipping_cost)){
+												$shipping_total += ($val->product->shipping_cost + $val->product->tax);
+											}else{
+												$shipping_total = $val->product->tax;
+											}
+											@endphp
 											</tr>
 											@endforeach
 										</tbody>
@@ -115,11 +118,8 @@ $country = $new->getCountry();
 												<td><strong><span class="amount">€{{$shipping_total}}</span></strong> </td>
 											</tr>
 											<tr class="order-total">
-												<th>Total</th>
-												@php
-												$grand_Total = $total+$shipping_total;
-												@endphp
-												<td><strong><span class="amount">€{{$grand_Total}}</span></strong> </td>
+												<th>Total - coupon disocunt</th>
+												<td><strong><span class="amount">€{{$grand_total}}</span></strong> </td>
 											</tr>
 										</tfoot>
 									</table>
@@ -192,7 +192,7 @@ $country = $new->getCountry();
 $(document).ready(function(){
 	$(".ship_to_diff_add").on('click',function(){
 		var flag = $(this).val();
-		var total = "{{$grand_Total}}";
+		var total = "{{$grand_total}}";
 		$("#total").val(total);
 		$("#diff_address").on('keyup keydown focus',function(){
 			var address = $(this).val();
@@ -202,7 +202,15 @@ $(document).ready(function(){
 });
 
 $("#place_order").on('click',function(){
-	var total = "{{$grand_Total}}";
+	var total = "{{$grand_total}}";
+	$("#total").val(total);
+	if($("form#orderform").parsley().validate()){
+		$("form#orderform").submit();
+	}
+})
+
+$("#apply_cupon").on('click',function(){
+	var total = "{{$grand_total}}";
 	$("#total").val(total);
 	if($("form#orderform").parsley().validate()){
 		$("form#orderform").submit();

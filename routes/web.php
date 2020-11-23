@@ -255,6 +255,8 @@ Route::get('/user/profile/','FrontendController@profile')->name('userhome.profil
 Route::post('/user/place_order','FrontendController@place_order')->name('userhome.place_order');
 Route::get('/users/invoice/{id}','FrontendController@invoice')->name('userhome.invoice');
 Route::post('users/product_review/','FrontendController@review_form')->name('userhome.review_form');
+Route::post('users/product_review/','FrontendController@apply_coupon')->name('userhome.apply_coupon');
+
 });
 
 Route::post('/users/login/auth','FrontendController@login_check')->name('userhome.login_check');

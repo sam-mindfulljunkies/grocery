@@ -6,7 +6,7 @@
 				</div>
 				<div class="content-cart-checkout woocommerce">
 					<h2 class="title30 font-bold text-uppercase">Cart</h2>
-					<form method="post">
+					<form method="post" action="javascript:;">
 						<div class="table-responsive">
 							<table class="shop_table cart table">
 								<thead>
@@ -58,7 +58,11 @@
 										</td>
 											@php 
 											$total += ($val->price) * $val->quantity;
-											$shipping_total += ($val->product->shipping_cost + $val->product->tax );
+											if(isset($val->product->shipping_cost)){
+												$shipping_total += ($val->product->shipping_cost + $val->product->tax);
+											}else{
+												$shipping_total = $val->product->tax;
+											}
 											@endphp
 									</tr>
 									@endforeach
@@ -92,7 +96,7 @@
 											<div class="coupon">
 												<label for="coupon_code">Coupon:</label> 
 												<input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code"> 
-												<input type="submit" value="Apply Coupon" name="apply_coupon" class="button bg-color">
+												<input type="submit" value="Apply Coupon" id="apply_coupon" href="javascript:;" action="javascript:;" name="apply_coupon" class="button bg-color">
 											</div>
 											<input type="submit" value="Update Cart" name="update_cart" class="button bg-color">			
 										</td>
@@ -117,7 +121,12 @@
 										</tr>
 										<tr class="order-total">
 											<th>Total</th>
-											<td><strong><span class="amount grand-total">€{{$total + $shipping_total}}</span></strong> </td>
+											@if(Session::has('Grand_total'))
+											<td><strong>€<span class="amount grand-total grand_totals_final">{{Session::get('Grand_total')}}</span></strong> </td>
+											@endif
+											@if(!Session::has('Grand_total'))
+											<td><strong>€<span class="amount grand-total grand_totals_final">{{$total + $shipping_total}}</span></strong> </td>
+											@endif
 										</tr>
 									</tbody>
 								</table>
@@ -132,3 +141,4 @@
 		</div>
 		<!-- End Content Pages -->
 </section>
+

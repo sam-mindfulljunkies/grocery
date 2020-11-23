@@ -75,5 +75,20 @@
                	}
             });
 	})
+
+	$("body").on('click',"#apply_coupon",function(e){
+		var code = $("#coupon_code").val();
+		var total = $("#grand_totals_final").html();
+		var token = "{{csrf_token()}}";
+		$.ajax({
+               type:'POST',
+               method:'POST',
+               url:"{{route('userhome.apply_coupon')}}",
+               data:{"code":code,'_token':token},
+               success:function(data) {
+               	$("#appendedData").html(data);
+              	}
+            });
+	})
 </script>
 @endpush

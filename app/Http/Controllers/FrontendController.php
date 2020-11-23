@@ -17,6 +17,7 @@ use Session, DB;
 use App\Models\Subscriber;
 use App\Models\ProductStock;
 use App\Models\Review;
+use App\Models\Coupon,App\Models\CouponUsage;
 
 class FrontendController extends Controller
 {
@@ -159,6 +160,7 @@ class FrontendController extends Controller
     }
     public function checkout_product()
     {
+        $grand_total = Session::get('Grand_total');
         $cart = Cart::with('product')->where('carts.user_id', Auth::user()
             ->id)
             ->get();
@@ -167,7 +169,7 @@ class FrontendController extends Controller
             return redirect()->route('userhome.products')
                 ->with('error', 'Sorry No data in cart to checkout');
         }
-        return view('frontend.checkout', compact('cart'));
+        return view('frontend.checkout', compact('cart','grand_total'));
     }
     public function login()
     {
@@ -407,6 +409,34 @@ class FrontendController extends Controller
         $review->comment = $request->messasge; 
         $review->save();
         return redirect()->back();
+    }
+
+    function apply_coupon(Request $request){
+        if(Session::has('Grand_total')){
+            $grand_total = Session::get('Grand_total');
+        }
+        $coupon = Coupon::where('code',$request->code)->first();
+        // echo date('Y-m-d',strtotime($coupon->end_date));
+        // echo date('Y-m-d');
+        // $start_Date =  date('Y-m-d',strtotime("$coupon->start_date"));
+        // $end_Date =  date('Y-m-d',strtotime("$coupon->end_date"));
+        // $today =  date('Y-m-d') ;
+        $start_Date = '2020-10-25';
+        $end_Date = '2020-10-30';
+        $today = '2020-10-26';
+        if(isset($coupon->id) &&($start_Date <= $today) && ($end_Date >= $today) ){
+            $grand_total = $grand_total - $coupon->discount;
+            $coupon_usages = CouponUsage::where('user_id',Auth::user()->id)->where('coupon_id',$coupon->id)->first();
+            if(!$coupon_usages){
+                $coupon_usage =  new CouponUsage();
+            $coupon_usage->user_id  = Auth::user()->id;
+            $coupon_usage->coupon_id  = $coupon->id;
+            $coupon_usage->save();
+            Session::put('Grand_total',$grand_total);
+            }
+        }
+        $carts = Cart::with('product')->get();
+        return view('frontend.cartbox', compact('carts'))->render();        
     }
 }
 
