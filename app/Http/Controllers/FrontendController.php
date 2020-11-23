@@ -416,14 +416,12 @@ class FrontendController extends Controller
             $grand_total = Session::get('Grand_total');
         }
         $coupon = Coupon::where('code',$request->code)->first();
-        // echo date('Y-m-d',strtotime($coupon->end_date));
-        // echo date('Y-m-d');
-        // $start_Date =  date('Y-m-d',strtotime("$coupon->start_date"));
-        // $end_Date =  date('Y-m-d',strtotime("$coupon->end_date"));
-        // $today =  date('Y-m-d') ;
-        $start_Date = '2020-10-25';
-        $end_Date = '2020-10-30';
-        $today = '2020-10-26';
+        $start_Date =  date('Y-m-d',strtotime($coupon->start_date));
+        $end_Date =  date('Y-m-d',strtotime($coupon->end_date));
+        $today =  date('Y-m-d') ;
+        // $start_Date = '2020-10-25';
+        // $end_Date = '2020-10-30';
+        // $today = '2020-10-26';
         if(isset($coupon->id) &&($start_Date <= $today) && ($end_Date >= $today) ){
             $grand_total = $grand_total - $coupon->discount;
             $coupon_usages = CouponUsage::where('user_id',Auth::user()->id)->where('coupon_id',$coupon->id)->first();
